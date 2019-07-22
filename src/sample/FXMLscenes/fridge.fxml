@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="sample.Controller"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<HBox onMouseClicked="#swapToAddProduct" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <children>
+       <ListView fx:id="products" prefHeight="400.0" prefWidth="421.0">
+    </ListView>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="299.0">
+         <children>
+            <TextArea layoutY="-1.0" prefHeight="223.0" prefWidth="299.0" wrapText="true" />
+            <Button layoutX="27.0" layoutY="245.0" mnemonicParsing="false" onMouseClicked="#swapToAddProduct" prefHeight="25.0" prefWidth="250.0" text="Dodaj" />
+            <Button layoutX="27.0" layoutY="275.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="250.0" text="Usuń" />
+            <Button layoutX="27.0" layoutY="305.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="250.0" text="Edytuj" />
+            <Button layoutX="27.0" layoutY="335.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="250.0" text="Sortuj" />
+         </children>
+      </AnchorPane>
+   </children>
+</HBox>
