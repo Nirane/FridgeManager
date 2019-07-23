@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<?import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory?>
+<AnchorPane prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.AddProductController">
+   <children>
+      <DatePicker fx:id="dateField" layoutX="63.0" layoutY="242.0" />
+      <Label contentDisplay="CENTER" layoutX="63.0" layoutY="225.0" prefHeight="17.0" prefWidth="174.0" text="Data ważności" textAlignment="CENTER" />
+      <TextField fx:id="ownerField" layoutX="63.0" layoutY="304.0" prefHeight="25.0" prefWidth="174.0" />
+      <TextField fx:id="nameField" layoutX="63.0" layoutY="59.0" prefHeight="25.0" prefWidth="174.0" />
+      <Label layoutX="63.0" layoutY="42.0" prefHeight="17.0" prefWidth="174.0" text="Nazwa" />
+      <Label layoutX="63.0" layoutY="287.0" prefHeight="17.0" prefWidth="174.0" text="Właściciel" />
+      <Spinner fx:id="weightField" editable="true" layoutX="63.0" layoutY="181.0" prefHeight="25.0" prefWidth="174.0">
+         <valueFactory>
+            <SpinnerValueFactory.DoubleSpinnerValueFactory min="0.0" max="50.0" initialValue="1.0" amountToStepBy="0.1"/>
+         </valueFactory>
+      </Spinner>
+      <TextField fx:id="typeField" layoutX="63.0" layoutY="120.0" prefHeight="25.0" prefWidth="174.0" />
+      <Label layoutX="63.0" layoutY="103.0" prefHeight="17.0" prefWidth="174.0" text="Typ" />
+      <Label layoutX="63.0" layoutY="164.0" prefHeight="17.0" prefWidth="174.0" text="Waga" />
+      <Button fx:id="save" layoutX="63.0" layoutY="348.0" mnemonicParsing="false" onMouseClicked="#save" prefHeight="25.0" prefWidth="76.0" text="Zapisz" />
+      <Button fx:id="cancel" layoutX="162.0" layoutY="348.0" mnemonicParsing="false" onMouseClicked="#cancel" prefHeight="25.0" prefWidth="76.0" text="Cofnij" />
+   </children>
+</AnchorPane>

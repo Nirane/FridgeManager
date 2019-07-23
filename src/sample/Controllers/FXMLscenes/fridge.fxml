@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox onMouseClicked="#swapToAddProduct" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.FridgeController">
+   <children>
+      <TableView fx:id="products" editable="true" prefHeight="400.0" prefWidth="463.0" tableMenuButtonVisible="true">
+        <columns>
+          <TableColumn fx:id="tableName" prefWidth="78.0" text="nazwa" />
+          <TableColumn fx:id="tableType" prefWidth="91.0" text="typ" />
+            <TableColumn fx:id="tableWeight" prefWidth="87.0" text="waga" />
+            <TableColumn fx:id="tableOwner" prefWidth="110.0" text="właściciel" />
+        </columns>
+      </TableView>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="299.0">
+         <children>
+            <TextArea layoutY="-1.0" prefHeight="223.0" prefWidth="299.0" wrapText="true" />
+            <Button fx:id="addButton" layoutX="25.0" layoutY="268.0" mnemonicParsing="false" onMouseClicked="#swapToAddProduct" prefHeight="25.0" prefWidth="250.0" text="Dodaj" />
+            <Button fx:id="deleteButton" layoutX="25.0" layoutY="298.0" mnemonicParsing="false" onMouseClicked="#optionChoose" prefHeight="25.0" prefWidth="250.0" text="Usuń" />
+            <Button fx:id="editButton" layoutX="25.0" layoutY="328.0" mnemonicParsing="false" onMouseClicked="#optionChoose" prefHeight="25.0" prefWidth="250.0" text="Edytuj" />
+         </children>
+      </AnchorPane>
+   </children>
+</HBox>
