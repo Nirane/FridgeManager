@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.EditProductController">
+    <children>
+        <Label layoutX="63.0" layoutY="42.0" prefHeight="17.0" prefWidth="174.0" text="Nazwa" />
+        <TextField fx:id="nameField" layoutX="63.0" layoutY="59.0" prefHeight="25.0" prefWidth="174.0" />
+        <Label layoutX="63.0" layoutY="103.0" prefHeight="17.0" prefWidth="174.0" text="Typ" />
+        <TextField fx:id="typeField" layoutX="63.0" layoutY="120.0" prefHeight="25.0" prefWidth="174.0" />
+        <Label layoutX="63.0" layoutY="164.0" prefHeight="17.0" prefWidth="174.0" text="Waga" />
+        <Spinner fx:id="weightField" editable="true" layoutX="63.0" layoutY="181.0" prefHeight="25.0" prefWidth="174.0">
+            <valueFactory>
+                <SpinnerValueFactory.DoubleSpinnerValueFactory amountToStepBy="0.1" initialValue="1.0" max="50.0" min="0.0" />
+            </valueFactory>
+        </Spinner>
+        <Label contentDisplay="CENTER" layoutX="63.0" layoutY="225.0" prefHeight="17.0" prefWidth="174.0" text="Data ważności" textAlignment="CENTER" />
+        <DatePicker fx:id="dateField" layoutX="63.0" layoutY="242.0" />
+        <Label layoutX="63.0" layoutY="287.0" prefHeight="17.0" prefWidth="174.0" text="Właściciel" />
+        <TextField fx:id="ownerField" layoutX="63.0" layoutY="304.0" prefHeight="25.0" prefWidth="174.0" />
+        <Button fx:id="save" layoutX="63.0" layoutY="348.0" mnemonicParsing="false" onMouseClicked="#update" prefHeight="25.0" prefWidth="76.0" text="Zapisz" />
+        <Button fx:id="cancel" layoutX="162.0" layoutY="348.0" mnemonicParsing="false" onMouseClicked="#exit" prefHeight="25.0" prefWidth="76.0" text="Cofnij" />
+    </children>
+</AnchorPane>
+

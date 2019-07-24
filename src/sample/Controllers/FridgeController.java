@@ -2,6 +2,7 @@ package sample.Controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,6 +15,7 @@ import sample.UsableClasses.Food;
 
 import java.io.IOException;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 
 public class FridgeController {
 
@@ -21,6 +23,7 @@ public class FridgeController {
     @FXML private TableColumn<Food,String> tableName;
     @FXML private TableColumn<Food,String> tableType;
     @FXML private TableColumn<Food,Double> tableWeight;
+    @FXML private TableColumn<Food,String> tableDate;
     @FXML private TableColumn<Food,String> tableOwner;
 
     @FXML private Button addButton;
@@ -33,52 +36,24 @@ public class FridgeController {
     }
 
     @FXML
-    public void swapToAddProduct()
-    {
-        Stage addProductWindow = new Stage();
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLscenes/addProduct.fxml"));
-            Parent root = loader.load();
-            AddProductController addProductController = loader.getController();
-            addProductController.setProducts(products);
-            addProductWindow.setTitle("Dodaj produkt");
-            addProductWindow.setScene(new Scene(root,300,400));
-            addProductWindow.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
     public void optionChoose(MouseEvent event)
     {
-        String path;
-        String title;
-
-        if(products.getSelectionModel().getSelectedItem()!=null)
+        if(event.getSource().equals(addButton))
         {
-            if(event.getSource().equals(addButton))
-            {
-                path = "FXMLscenes/addProduct.fxml";
-                title = "Dodaj produkt";
-            }
-            else if(event.getSource().equals(deleteButton))
-            {
-                path = "FXMLscenes/deleteProduct.fxml";
-                title = "Usuń produkt";
-            }
-            else
-            {
-                path = "FXMLscenes/editProduct.fxml";
-                title = "Edycja produktu";
-            }
-
-            loadWindow(path,title);
+            loadWindow("FXMLscenes/addProduct.fxml","Dodaj produkt",400,300);
+        }
+        else if (event.getSource().equals(deleteButton) && products.getSelectionModel().getSelectedItem()!=null)
+        {
+            loadWindow("FXMLscenes/deleteProduct.fxml","Usuń produkt",400,600);
+        }
+        else if (event.getSource().equals(editButton) && products.getSelectionModel().getSelectedItem()!=null)
+        {
+            loadWindow("FXMLscenes/editProduct.fxml","Edycja produktu",400,300);
         }
     }
 
     @FXML
-    private void loadWindow(String path, String title)
+    private void loadWindow(String path, String title, int height, int width)
     {
         Stage window = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(path));
@@ -86,12 +61,11 @@ public class FridgeController {
         try {
             Parent root = fxmlLoader.load();
 
-            DeleteProductController deleteProductController = fxmlLoader.getController();
-            deleteProductController.setProduct(products.getSelectionModel().getSelectedItem());
-            deleteProductController.setProducts(products);
+            OptionController optionController = fxmlLoader.getController();
+            optionController.setProducts(products);
 
             window.setTitle(title);
-            window.setScene(new Scene(root,400,300));
+            window.setScene(new Scene(root,width,height));
             window.show();
 
         } catch (IOException e) {
@@ -111,6 +85,7 @@ public class FridgeController {
             tableName.setCellValueFactory(new PropertyValueFactory<Food, String>("name"));
             tableType.setCellValueFactory(new PropertyValueFactory<Food, String>("type"));
             tableWeight.setCellValueFactory(new PropertyValueFactory<Food, Double>("weight"));
+            tableDate.setCellValueFactory(new PropertyValueFactory<Food, String>("date"));
             tableOwner.setCellValueFactory(new PropertyValueFactory<Food, String>("Owner"));
 
             while(resultSet.next())
@@ -118,13 +93,33 @@ public class FridgeController {
                 String name = resultSet.getString("nazwa");
                 String type = resultSet.getString("typ");
                 double weight = resultSet.getDouble("waga");
-                //Date date = resultSet.getDate("data");
+                //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                String date = resultSet.getString("data");
+                //Date toDate = new Date(date);
+                //sdf.format(resultSet.getDate(4));
+                //String date = resultSet.getDate("data").toString();
                 //Date date = resultSet.getString("data").;
                 String owner = resultSet.getString("właściciel");
-                products.getItems().add(new Food(name,type,weight,owner));
+                products.getItems().add(new Food(name,type,weight,date,owner));
                 products.refresh();
             }
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void backToMainMenu(MouseEvent event)
+    {
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.hide();
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("FXMLscenes/sample.fxml"));
+            window.setTitle("Menedżer lodówki");
+            window.setScene(new Scene(root,1200,600));
+            window.show();
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

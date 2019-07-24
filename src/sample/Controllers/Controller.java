@@ -18,6 +18,8 @@ import java.sql.*;
 //transition w main menu
 //czy na pewno wszystko jest tam gdzie powinno?
 
+//naprawić daty czyli: dodac pole w Food, dobrze pobierać z sqla, polecenie sql do usuwania i edytowania, tableView products komorke dodac
+
 public class Controller {
 
     @FXML private ImageView fridge;
@@ -42,11 +44,12 @@ public class Controller {
     {
         if(event.getSource().equals(fridge)){
             try {
-                //Parent root = FXMLLoader.load(getClass().getResource())
                 Parent root = FXMLLoader.load(getClass().getResource("FXMLscenes/fridge.fxml"));
                 Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-                Scene scene = new Scene(root,720,400);
+                stage.hide();
+                Scene scene = new Scene(root,950,500);
                 stage.setScene(scene);
+                stage.show();
 
             } catch (IOException e) {
                 e.printStackTrace();

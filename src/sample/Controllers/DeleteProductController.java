@@ -2,9 +2,10 @@ package sample.Controllers;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import sample.UsableClasses.Food;
 
 import java.sql.Connection;
@@ -12,45 +13,63 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class DeleteProductController {
+public class DeleteProductController extends OptionController {
 
-    @FXML private Label assurement;
-    private TableView products;
-    private Food product;
-
-    public void setProduct(Food product)
-    {
-        this.product = product;
-    }
-
-    public void setProducts(TableView products)
-    {
-        this.products = products;
-    }
+    @FXML private Label labelName;
+    @FXML private Label labelType;
+    @FXML private Label labelWeight;
+    @FXML private Label labelDate;
+    @FXML private Label labelOwner;
+    private Food selectedProduct;
 
     public void initialize() {
 
-        Platform.runLater(new Runnable() {
+        Platform.runLater(new Runnable(){
             @Override
             public void run() {
-                if(product!=null)
-                    assurement.setText("Czy jesteś pewny, że chcesz usunać: " + product.getName() + " typu " + product.getType() + " o wadze " + product.getWeight() + " kg właściciela " + product.getOwner());
+                selectedProduct = products.getSelectionModel().getSelectedItem();
+
+                if(selectedProduct!=null)
+                {
+                    labelName.setText(selectedProduct.getName());
+                    labelType.setText(selectedProduct.getType());
+                    labelWeight.setText(selectedProduct.getWeight() +" kg");
+                    labelDate.setText(selectedProduct.getDate());
+                    labelOwner.setText(selectedProduct.getOwner());
+                }
             }
         });
     }
 
     @FXML
-    private void deleteProduct()
+    private void deleteProduct(MouseEvent event)
     {
         try {
             Connection connection = DriverManager.getConnection("jdbc:sqlite:baza.db");
+
             Statement statement = connection.createStatement();
-            statement.execute("DELETE FROM products WHERE nazwa = '" + product.getName() + "'");
-            products.getItems().remove(product);
+            statement.execute("DELETE FROM products WHERE " +
+                    "nazwa = '" + selectedProduct.getName() +
+                    "' AND typ = '" + selectedProduct.getType() +
+                    "' AND waga = '" + selectedProduct.getWeight() +
+                    "' AND data = '" +selectedProduct.getDate() +
+                    "' AND właściciel = '" + selectedProduct.getOwner() +"'");
+            products.getItems().remove(selectedProduct);
+
             statement.close();
             connection.close();
+
+            closeWindow(event);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void closeWindow(MouseEvent event)
+    {
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.close();
     }
 }
