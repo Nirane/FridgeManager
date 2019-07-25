@@ -1,0 +1,37 @@
+.menuButton{
+    -fx-background-color:  #292826;
+    -fx-text-fill: F9D342;
+    -fx-font-size: 30;
+    -fx-pref-width: 300;
+    -fx-pref-height: 30;
+}
+.toolbarButton {
+    -fx-background-color: F9D342;
+    -fx-pref-width:30;
+    -fx-pref-height:30;
+}
+.toolbarButton:hover {
+    -fx-background-color: #ffffff;
+}
+.toolbar {
+    -fx-pref-height: 45;
+    -fx-background-color:  #292826;
+}
+.menuButton:hover {
+    -fx-background-color: #ffffff;
+    -fx-cursor: hand;
+}
+.fridgeButton{
+    -fx-background-color:  #292826;
+    -fx-text-fill: F9D342;
+    -fx-font-size: 30;
+    -fx-pref-width: 200;
+    -fx-pref-height: 30;
+}
+.creditsButton{
+    -fx-background-color:  #292826;
+    -fx-text-fill: F9D342;
+    -fx-font-size: 15;
+    -fx-pref-width: 100;
+    -fx-pref-height: 15;
+}

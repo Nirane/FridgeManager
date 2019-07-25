@@ -1,18 +1,22 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("Controllers/FXMLscenes/sample.fxml"));
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
+        Parent root = FXMLLoader.load(getClass().getResource("Controllers/FXMLscenes/mainMenu.fxml"));
         primaryStage.setTitle("Fridge Manager");
-        primaryStage.setScene(new Scene(root, 1200, 600));
+        primaryStage.setScene(new Scene(root, 1350, 600));
         primaryStage.show();
     }
 

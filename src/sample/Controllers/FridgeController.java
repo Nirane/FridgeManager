@@ -93,16 +93,12 @@ public class FridgeController {
                 String name = resultSet.getString("nazwa");
                 String type = resultSet.getString("typ");
                 double weight = resultSet.getDouble("waga");
-                //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 String date = resultSet.getString("data");
-                //Date toDate = new Date(date);
-                //sdf.format(resultSet.getDate(4));
-                //String date = resultSet.getDate("data").toString();
-                //Date date = resultSet.getString("data").;
                 String owner = resultSet.getString("właściciel");
                 products.getItems().add(new Food(name,type,weight,date,owner));
-                products.refresh();
+
             }
+           // products.refresh();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -114,9 +110,9 @@ public class FridgeController {
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.hide();
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("FXMLscenes/sample.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("FXMLscenes/mainMenu.fxml"));
             window.setTitle("Menedżer lodówki");
-            window.setScene(new Scene(root,1200,600));
+            window.setScene(new Scene(root,400,600));
             window.show();
 
         } catch (IOException e) {

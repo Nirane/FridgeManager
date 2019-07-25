@@ -10,9 +10,10 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="500.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.FridgeController">
-   <children>
-      <TableView fx:id="products" editable="true" prefHeight="400.0" prefWidth="750.0" tableMenuButtonVisible="true">
+<AnchorPane prefHeight="500.0" prefWidth="950.0" style="-fx-background-color: white; -fx-border-color: #292826; -fx-border-width: 0 4 4 0;" stylesheets="@CSS/style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.FridgeController">
+
+    <children>
+      <TableView fx:id="products" editable="true" layoutX="8.0" layoutY="29.0" prefHeight="400.0" prefWidth="750.0" tableMenuButtonVisible="true">
         <columns>
             <TableColumn fx:id="tableName" prefWidth="182.0" text="nazwa" />
             <TableColumn fx:id="tableType" minWidth="0.0" prefWidth="141.0" text="typ" />
@@ -21,24 +22,24 @@
             <TableColumn fx:id="tableOwner" prefWidth="160.0" text="właściciel" />
         </columns>
       </TableView>
-       <Label layoutX="759.0" layoutY="26.0" prefHeight="17.0" prefWidth="174.0" text="Nazwa" />
-       <TextField fx:id="nameField" layoutX="759.0" layoutY="43.0" prefHeight="25.0" prefWidth="174.0" />
-       <Label layoutX="759.0" layoutY="87.0" prefHeight="17.0" prefWidth="174.0" text="Typ" />
-       <TextField fx:id="typeField" layoutX="759.0" layoutY="104.0" prefHeight="25.0" prefWidth="174.0" />
-       <Label layoutX="759.0" layoutY="148.0" prefHeight="17.0" prefWidth="174.0" text="Waga" />
-       <Spinner fx:id="weightField" editable="true" layoutX="759.0" layoutY="165.0" prefHeight="25.0" prefWidth="174.0">
+       <Label layoutX="767.0" layoutY="55.0" prefHeight="17.0" prefWidth="174.0" text="Nazwa" />
+       <TextField fx:id="nameField" layoutX="767.0" layoutY="72.0" prefHeight="25.0" prefWidth="174.0" />
+       <Label layoutX="767.0" layoutY="116.0" prefHeight="17.0" prefWidth="174.0" text="Typ" />
+       <TextField fx:id="typeField" layoutX="767.0" layoutY="133.0" prefHeight="25.0" prefWidth="174.0" />
+       <Label layoutX="767.0" layoutY="177.0" prefHeight="17.0" prefWidth="174.0" text="Waga" />
+       <Spinner fx:id="weightField" editable="true" layoutX="767.0" layoutY="194.0" prefHeight="25.0" prefWidth="174.0">
            <valueFactory>
                <SpinnerValueFactory.DoubleSpinnerValueFactory amountToStepBy="0.1" initialValue="1.0" max="50.0" min="0.0" />
            </valueFactory>
        </Spinner>
-       <Label contentDisplay="CENTER" layoutX="759.0" layoutY="209.0" prefHeight="17.0" prefWidth="174.0" text="Data ważności" textAlignment="CENTER" />
-       <DatePicker fx:id="dateField" layoutX="759.0" layoutY="226.0" />
-       <Label layoutX="759.0" layoutY="271.0" prefHeight="17.0" prefWidth="174.0" text="Właściciel" />
-       <TextField fx:id="ownerField" layoutX="759.0" layoutY="288.0" prefHeight="25.0" prefWidth="174.0" />
-      <Button fx:id="addButton" layoutY="410.0" mnemonicParsing="false" onMouseClicked="#optionChoose" prefHeight="50.0" prefWidth="200.0" text="Dodaj" />
-      <Button fx:id="deleteButton" layoutX="550.0" layoutY="410.0" mnemonicParsing="false" onMouseClicked="#optionChoose" prefHeight="50.0" prefWidth="200.0" text="Usuń" />
-      <Button fx:id="editButton" layoutX="276.0" layoutY="410.0" mnemonicParsing="false" onMouseClicked="#optionChoose" prefHeight="50.0" prefWidth="200.0" text="Edytuj" />
-      <Button layoutX="816.0" layoutY="461.0" mnemonicParsing="false" onMouseClicked="#backToMainMenu" prefHeight="25.0" prefWidth="109.0" text="Wróć" />
-      <Button layoutX="759.0" layoutY="331.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="175.0" text="Szukaj" />
+       <Label contentDisplay="CENTER" layoutX="767.0" layoutY="238.0" prefHeight="17.0" prefWidth="174.0" text="Data ważności" textAlignment="CENTER" />
+       <DatePicker fx:id="dateField" layoutX="767.0" layoutY="255.0" />
+       <Label layoutX="767.0" layoutY="300.0" prefHeight="17.0" prefWidth="174.0" text="Właściciel" />
+       <TextField fx:id="ownerField" layoutX="767.0" layoutY="317.0" prefHeight="25.0" prefWidth="174.0" />
+      <Button fx:id="addButton" layoutX="8.0" layoutY="439.0" mnemonicParsing="false" onMouseClicked="#optionChoose" prefHeight="50.0" prefWidth="200.0" text="Dodaj" />
+      <Button fx:id="deleteButton" layoutX="558.0" layoutY="439.0" mnemonicParsing="false" onMouseClicked="#optionChoose" prefHeight="50.0" prefWidth="200.0" text="Usuń" />
+      <Button fx:id="editButton" layoutX="284.0" layoutY="439.0" mnemonicParsing="false" onMouseClicked="#optionChoose" prefHeight="50.0" prefWidth="200.0" text="Edytuj" />
+      <Button layoutX="824.0" layoutY="490.0" mnemonicParsing="false" onMouseClicked="#backToMainMenu" prefHeight="25.0" prefWidth="109.0" text="Wróć" />
+      <Button layoutX="767.0" layoutY="360.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="175.0" text="Szukaj" />
    </children>
 </AnchorPane>
