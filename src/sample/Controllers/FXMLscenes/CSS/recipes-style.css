@@ -1,0 +1,47 @@
+.button{
+    -fx-pref-width: 160;
+        -fx-pref-height: 20;
+        -fx-background-color: #292826;
+        -fx-text-fill: #F9D342;
+        -fx-font-size: 18;
+}
+.background{
+    -fx-background-color: #ffffff;
+    -fx-border-color: #292826;
+    -fx-border-width: 0 4 4 0;
+}
+
+.button:hover{
+    -fx-background-color: #F9D342;
+    -fx-text-fill: #292826;
+    -fx-cursor: hand;
+}
+
+.optionBackground{
+    -fx-background-color: #F9D342;
+    -fx-border-color: #292826;
+    -fx-border-width: 4 4 4 4;
+}
+
+.optionLabel{
+    -fx-background-color: #292826;
+    -fx-text-fill: #F9D342;
+    -fx-font-size: 15;
+    -fx-pref-width:150;
+}
+
+.optionButton:hover{
+    -fx-background-color: #ffffff;
+    -fx-cursor: hand;
+}
+.table-view .column-header .label{
+    -fx-font-size: 14;
+    -fx-text-fill: #292826;
+}
+.table-view .column-header{
+    -fx-background-color: #F9D342;
+}
+.table-view .filler{
+    -fx-background-color: #F9D342;
+    -fx-text-fill: #292826;
+}

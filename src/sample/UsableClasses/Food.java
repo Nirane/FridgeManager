@@ -3,8 +3,6 @@ package sample.UsableClasses;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-import java.text.SimpleDateFormat;
-
 public class Food {
 
     private SimpleStringProperty name;

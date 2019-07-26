@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class MainMenuController {
+public class MainMenuController extends ToolbarController {
 
     @FXML private Button fridge;
     @FXML private Button recipes;
@@ -25,12 +25,8 @@ public class MainMenuController {
     private Node recipeNode;
     private Node fridgeNode;
 
-    private double xOffset;
-    private double yOffset;
-
     public void initialize()
     {
-
         try {
             recipeNode = FXMLLoader.load(getClass().getResource("FXMLscenes/recipes.fxml"));
             fridgeNode = FXMLLoader.load(getClass().getResource("FXMLscenes/fridge.fxml"));
@@ -50,35 +46,4 @@ public class MainMenuController {
         else if(event.getSource().equals(fridge)) selectedNode = fridgeNode;
         content.getChildren().add(selectedNode);
     }
-
-    @FXML
-    private void exit(MouseEvent event)
-    {
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        stage.close();
-    }
-
-    @FXML
-    private void minimize(MouseEvent event)
-    {
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        stage.setIconified(true);
-    }
-
-    @FXML
-    private void pressed(MouseEvent event)
-    {
-        xOffset = event.getSceneX();
-        yOffset = event.getSceneY();
-    }
-
-    @FXML
-    private void drag(MouseEvent event)
-    {
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        stage.setX(event.getScreenX() - xOffset);
-        stage.setY(event.getScreenY() - yOffset);
-    }
-
-
 }
