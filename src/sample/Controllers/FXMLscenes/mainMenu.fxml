@@ -37,52 +37,62 @@
       </ToolBar>
       <HBox fx:id="content" stylesheets="@CSS/style.css">
          <children>
-            <VBox fx:id="menu" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: #F9D342; -fx-border-color: #1d1d26; -fx-border-width: 0 4 4 4; -fx-border-style: solid;" stylesheets="@CSS/style.css">
+            <VBox fx:id="menu" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: #F9D342; -fx-border-color: #292826; -fx-border-width: 0 4 4 4; -fx-border-style: solid;" stylesheets="@CSS/style.css">
                <children>
+                   <Button fx:id="welcome" mnemonicParsing="false" onMouseClicked="#mainMenuClick" styleClass="menuButton" text="Witaj">
+                       <graphic>
+                           <ImageView fitHeight="35.0" fitWidth="30.0">
+                               <Image url="@Images/welcome.png" />
+                           </ImageView>
+                       </graphic>
+                       <VBox.margin>
+                           <Insets left="50.0" top="20.0" />
+                       </VBox.margin>
+                   </Button>
                   <Button mnemonicParsing="false" styleClass="menuButton" text="Kalendarz">
                       <graphic>
-                          <ImageView fitHeight="45.0" fitWidth="45.0">
+                          <ImageView fitHeight="35.0" fitWidth="30.0">
                               <Image url="@Images/calendar.png" />
                           </ImageView>
                       </graphic>
                      <VBox.margin>
-                        <Insets left="50.0" top="30.0" />
+                        <Insets left="50.0" top="20.0" />
                      </VBox.margin>
                   </Button>
                   <Button fx:id="fridge" mnemonicParsing="false" onMouseClicked="#mainMenuClick" styleClass="menuButton" text="Lodówka">
                       <graphic>
-                          <ImageView fitHeight="45.0" fitWidth="45.0">
+                          <ImageView fitHeight="35.0" fitWidth="30.0">
                               <Image url="@Images/fridge.png" />
                           </ImageView>
                       </graphic>
                       <VBox.margin>
-                        <Insets left="50.0" top="30.0" />
+                        <Insets left="50.0" top="20.0" />
                      </VBox.margin>
                   </Button>
                   <Button fx:id="recipes" mnemonicParsing="false" onMouseClicked="#mainMenuClick" styleClass="menuButton" text="Przepisy">
                       <graphic>
-                          <ImageView fitHeight="45.0" fitWidth="45.0">
+                          <ImageView fitHeight="35.0" fitWidth="30.0">
                               <Image url="@Images/recipebook.png" />
                           </ImageView>
                       </graphic>
                      <VBox.margin>
-                        <Insets left="50.0" top="30.0" />
+                        <Insets left="50.0" top="20.0" />
                      </VBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" styleClass="menuButton" text="Historia">
+                  <Button fx:id="history" mnemonicParsing="false" onMouseClicked="#mainMenuClick" styleClass="menuButton" text="Historia">
                       <graphic>
-                          <ImageView fitHeight="45.0" fitWidth="45.0">
+                          <ImageView fitHeight="35.0" fitWidth="30.0">
                               <Image url="@Images/history.png" />
                           </ImageView>
                       </graphic>
                      <VBox.margin>
-                        <Insets left="50.0" top="30.0" />
+                        <Insets left="50.0" top="20.0" />
                      </VBox.margin>
                   </Button>
                    <ImageView fitHeight="125.0" fitWidth="125.0">
                        <Image url="@Images/pan.png" />
                      <VBox.margin>
-                        <Insets left="130.0" top="10.0" />
+                        <Insets left="130.0" top="30.0" />
                      </VBox.margin>
                    </ImageView>
                   <Button mnemonicParsing="false" styleClass="creditsButton" text="Twórcy">

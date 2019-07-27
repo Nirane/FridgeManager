@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<TabPane xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.HistoryController">
+   <tabs>
+      <Tab text="produkty">
+         <content>
+            <HBox prefHeight="600.0" prefWidth="950.0">
+               <children>
+                  <TableView prefHeight="600.0" prefWidth="275.0">
+                    <columns>
+                      <TableColumn prefWidth="129.0" text="produkt" />
+                      <TableColumn prefWidth="145.0" text="data spożycia" />
+                    </columns>
+                  </TableView>
+                  <VBox prefHeight="580.0" prefWidth="644.0">
+                     <children>
+                        <PieChart fx:id="foodWeek" legendSide="RIGHT" prefHeight="300.0" prefWidth="200.0" title="produkty z tygodnia" />
+                        <PieChart fx:id="foodMonth" layoutX="10.0" layoutY="10.0" legendSide="RIGHT" prefHeight="299.0" prefWidth="200.0" title="produkty z miesiąca" />
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <stylesheets>
+                  <URL value="@CSS/style.css" />
+                  <URL value="@CSS/recipes-style.css" />
+               </stylesheets>
+            </HBox>
+         </content>
+      </Tab>
+      <Tab text="potrawy">
+        <content>
+            <HBox stylesheets="@CSS/recipes-style.css">
+               <children>
+                  <TableView fx:id="dishes" prefHeight="600.0" prefWidth="283.0">
+                     <columns>
+                        <TableColumn fx:id="tableName" prefWidth="136.0" text="potrawa" />
+                        <TableColumn fx:id="tableDate" prefWidth="138.0" text="data przygotowania" />
+                     </columns>
+                  </TableView>
+                  <VBox prefHeight="600.0" prefWidth="676.0">
+                     <children>
+                        <PieChart fx:id="dishWeek" legendSide="RIGHT" prefHeight="300.0" prefWidth="676.0" />
+                        <PieChart fx:id="dishMonth" layoutX="10.0" layoutY="10.0" legendSide="RIGHT" prefHeight="300.0" prefWidth="676.0" />
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+        </content>
+      </Tab>
+   </tabs>
+</TabPane>

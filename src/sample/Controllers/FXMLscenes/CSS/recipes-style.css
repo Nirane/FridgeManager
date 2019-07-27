@@ -20,14 +20,21 @@
 .optionBackground{
     -fx-background-color: #F9D342;
     -fx-border-color: #292826;
-    -fx-border-width: 4 4 4 4;
+    -fx-border-width: 0 4 4 4;
 }
 
-.optionLabel{
+.optionLabel, welcomeLabel{
     -fx-background-color: #292826;
     -fx-text-fill: #F9D342;
     -fx-font-size: 15;
     -fx-pref-width:150;
+}
+
+.welcomeLabel{
+    -fx-pref-width: 450;
+    -fx-background-color: #292826;
+    -fx-text-fill: #F9D342;
+    -fx-font-size: 15;
 }
 
 .optionButton:hover{
