@@ -2,11 +2,18 @@ package sample.Controllers;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.transformation.FilteredList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.Label;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import sample.UsableClasses.Dish;
 
 import java.sql.*;
@@ -16,7 +23,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 
 public class HistoryController {
 
@@ -28,6 +34,12 @@ public class HistoryController {
     @FXML private PieChart foodMonth;
     @FXML private PieChart dishWeek;
     @FXML private PieChart dishMonth;
+
+    @FXML private TabPane tabPane;
+
+    private int dishWeekValuesSummedUp = 0;
+    private int dishMonthValuesSummedUp = 0;
+    @FXML private Label chartLabel;
 
     public void initialize()
     {
@@ -86,8 +98,6 @@ public class HistoryController {
         fillProductMonthChart();
         fillDishChart(dishWeek);
         fillDishChart(dishMonth);
-        /*fillDishWeekChart();
-        fillDishMonthChart();*/
     }
 
     private void fillDishChart(PieChart chart)
@@ -118,37 +128,12 @@ public class HistoryController {
             if (dataSet.containsKey(dish.getName())) dataSet.replace(dish.getName(), dataSet.get(dish.getName()) + 1);
             else dataSet.put(dish.getName(), 1);
         }
-        dataSet.forEach((k,v) -> chart.getData().add(new PieChart.Data(k,v)));
-    }
-
-    private void fillDishWeekChart()
-    {
-
-    }
-
-    private void fillDishMonthChart()
-    {
-        FilteredList weekly = dishes.getItems().filtered(p -> {
-
-            Calendar cal = Calendar.getInstance();
-            Date today = new Date();
-            cal.setTime(today);
-            cal.add(Calendar.MONTH, -1);
-            Date dateBefore = cal.getTime();
-            DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-            Date dishDoneOn = new Date();
-            try {
-                dishDoneOn = format.parse(p.getDate());
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            return dishDoneOn.after(dateBefore);
+        dataSet.forEach((k,v) -> {
+            chart.getData().add(new PieChart.Data(k,v));
+            if(chart.getId().equals("dishWeek")) dishWeekValuesSummedUp += v;
+            else if(chart.getId().equals("dishMonth")) dishMonthValuesSummedUp += v;
         });
 
-        for (Object o : weekly) {
-            Dish dish = ((Dish) o);
-            dishMonth.getData().add(new PieChart.Data(dish.getName(), 1));
-        }
     }
 
     private void fillProductWeekChart()

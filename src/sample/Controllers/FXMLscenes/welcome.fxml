@@ -4,24 +4,62 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox alignment="CENTER" prefHeight="600.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox prefHeight="250.0" prefWidth="950.0">
+      <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
          <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="125.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/calendar.png" />
+               </image>
+               <HBox.margin>
+                  <Insets right="80.0" />
+               </HBox.margin></ImageView>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="78.0" prefWidth="537.0" styleClass="welcomeLabel" stylesheets="@CSS/recipes-style.css" text="Wybierz w menu opcję Kalendarz jeśli chcesz ułożyć swój jadłospis." textAlignment="CENTER" wrapText="true" />
          </children></HBox>
-      <HBox layoutX="10.0" layoutY="10.0" prefHeight="250.0" prefWidth="950.0">
+      <HBox alignment="CENTER" prefHeight="150.0">
          <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="78.0" prefWidth="537.0" styleClass="welcomeLabel" stylesheets="@CSS/recipes-style.css" text="Wybierz opcję Lodówka jeśli chcesz rozporządzać jej zawartością." textAlignment="CENTER" wrapText="true" />
+            <ImageView fitHeight="125.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/fridge.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="80.0" />
+               </HBox.margin>
+            </ImageView>
          </children>
       </HBox>
-      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="78.0" prefWidth="537.0" styleClass="welcomeLabel" stylesheets="@CSS/recipes-style.css" text="Menedżer lodówki został stworzony z myślą ułatwienia ci: rozplanowania tygodniowego jadłospisu, rozporządzanie jedzeniem, szukanie pomysłu na potrawę oraz kontrolowanie diety" textAlignment="CENTER" wrapText="true" />
+      <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="150.0" prefWidth="950.0">
+         <children>
+            <ImageView fitHeight="125.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/recipebook.png" />
+               </image>
+               <HBox.margin>
+                  <Insets right="80.0" />
+               </HBox.margin></ImageView>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="78.0" prefWidth="537.0" styleClass="welcomeLabel" stylesheets="@CSS/recipes-style.css" text="Wybierz opcję Przepisy jeśli chcesz coś ugotować i szukasz natchnienia w swoich kulinarnych rozterkach." textAlignment="CENTER" wrapText="true" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="150.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="78.0" prefWidth="537.0" styleClass="welcomeLabel" stylesheets="@CSS/recipes-style.css" text="Wybierz opcję Historia jeśli chcesz zobaczyć co ostatnio przyrządziłeś i zjadłeś." textAlignment="CENTER" wrapText="true" />
+            <ImageView fitHeight="125.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/history.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="80.0" />
+               </HBox.margin>
+            </ImageView>
+         </children>
+      </HBox>
    </children>
    <stylesheets>
       <URL value="@CSS/style.css" />

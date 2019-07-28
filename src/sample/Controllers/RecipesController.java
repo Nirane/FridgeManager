@@ -95,11 +95,11 @@ public class RecipesController extends ToolbarController {
             statement.execute("SELECT * FROM recipes");
             ResultSet results = statement.getResultSet();
 
-            tableRecipe.setCellValueFactory(new PropertyValueFactory<Recipe, String>("recipe"));
-            tableType.setCellValueFactory(new PropertyValueFactory<Recipe, String>("type"));
-            tableIngredients.setCellValueFactory(new PropertyValueFactory<Recipe, String>("ingredients"));
-            tableDate.setCellValueFactory(new PropertyValueFactory<Recipe, String>("date"));
-            tableTime.setCellValueFactory(new PropertyValueFactory<Recipe, String>("time"));
+            tableRecipe.setCellValueFactory(new PropertyValueFactory<>("recipe"));
+            tableType.setCellValueFactory(new PropertyValueFactory<>("type"));
+            tableIngredients.setCellValueFactory(new PropertyValueFactory<>("ingredients"));
+            tableDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+            tableTime.setCellValueFactory(new PropertyValueFactory<>("time"));
 
             while(results.next())
             {

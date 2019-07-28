@@ -32,6 +32,7 @@
 
 .welcomeLabel{
     -fx-pref-width: 450;
+    -fx-pref-height: 50;
     -fx-background-color: #292826;
     -fx-text-fill: #F9D342;
     -fx-font-size: 15;
@@ -50,5 +51,28 @@
 }
 .table-view .filler{
     -fx-background-color: #F9D342;
+    -fx-text-fill: #292826;
+}
+
+.tab-pane .tab-header-background{
+    -fx-background-color: #F9D342;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #FFFFFF;
+    -fx-border-style: solid;
+}
+
+.tab-pane .tab-label{
+    -fx-text-fill: #F9D342;
+}
+
+.tab-pane .tab{
+    -fx-background-color: #292826;
+}
+
+.tab-pane .tab:selected{
+    -fx-background-color: #FFFFFF;
+}
+
+.tab-pane .tab:selected .tab-label{
     -fx-text-fill: #292826;
 }
