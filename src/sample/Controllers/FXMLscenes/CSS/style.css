@@ -5,6 +5,13 @@
     -fx-pref-width: 300;
     -fx-pref-height: 20;
 }
+.menuButton:hover {
+    -fx-background-color: #ffffff;
+    -fx-cursor: hand;
+}
+.menuButtonSelected{
+    -fx-background-color: #ffffff;
+}
 .toolbarButton {
     -fx-background-color: F9D342;
     -fx-pref-width:30;
@@ -16,10 +23,6 @@
 .toolbar {
     -fx-pref-height: 45;
     -fx-background-color:  #292826;
-}
-.menuButton:hover {
-    -fx-background-color: #ffffff;
-    -fx-cursor: hand;
 }
 .fridgeButton{
     -fx-background-color:  #292826;

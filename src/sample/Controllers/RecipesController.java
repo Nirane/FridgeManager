@@ -87,8 +87,6 @@ public class RecipesController extends ToolbarController {
     @FXML
     private void updateRecipes()
     {
-        recipes.getItems().clear();
-
         try {
             Connection connection = DriverManager.getConnection("jdbc:sqlite:baza.db");
             Statement statement = connection.createStatement();
@@ -100,6 +98,8 @@ public class RecipesController extends ToolbarController {
             tableIngredients.setCellValueFactory(new PropertyValueFactory<>("ingredients"));
             tableDate.setCellValueFactory(new PropertyValueFactory<>("date"));
             tableTime.setCellValueFactory(new PropertyValueFactory<>("time"));
+
+            recipes.getItems().clear();
 
             while(results.next())
             {

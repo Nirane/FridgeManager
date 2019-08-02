@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
 <HBox prefHeight="600.0" prefWidth="950.0" spacing="10.0" stylesheets="@CSS/recipes-style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.FridgeController">
    <children>
       <TableView fx:id="products" editable="true" prefHeight="400.0" prefWidth="750.0" tableMenuButtonVisible="true">
@@ -23,12 +22,12 @@
       </TableView>
       <VBox alignment="CENTER" prefHeight="602.0" prefWidth="191.0" spacing="20.0">
          <children>
-            <Button fx:id="addButton2" layoutX="26.0" layoutY="173.0" mnemonicParsing="false" onMouseClicked="#optionChoose" prefHeight="50.0" prefWidth="200.0" text="Zjedz" />
-            <Button fx:id="addButton" mnemonicParsing="false" onMouseClicked="#optionChoose" prefHeight="50.0" prefWidth="200.0" text="Dodaj" />
-            <Button fx:id="editButton" mnemonicParsing="false" onMouseClicked="#optionChoose" prefHeight="50.0" prefWidth="200.0" text="Edytuj" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="175.0" text="Szukaj" />
-            <Button fx:id="addButton1" layoutX="26.0" layoutY="202.0" mnemonicParsing="false" onMouseClicked="#optionChoose" prefHeight="50.0" prefWidth="200.0" text="Przywróć" />
-            <Button fx:id="deleteButton" mnemonicParsing="false" onMouseClicked="#optionChoose" prefHeight="50.0" prefWidth="200.0" text="Usuń" />
+            <Button layoutX="26.0" layoutY="173.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" text="Zjedz" />
+            <Button fx:id="addButton" mnemonicParsing="false" onMouseClicked="#loadWindow" prefHeight="50.0" prefWidth="200.0" text="Dodaj" />
+            <Button fx:id="editButton" mnemonicParsing="false" onMouseClicked="#loadWindow" prefHeight="50.0" prefWidth="200.0" text="Edytuj" />
+            <Button fx:id="searchButton" mnemonicParsing="false" onMouseClicked="#loadWindow" prefHeight="40.0" prefWidth="175.0" text="Szukaj" />
+            <Button layoutX="26.0" layoutY="202.0" mnemonicParsing="false" onMouseClicked="#updateFridge" prefHeight="50.0" prefWidth="200.0" text="Przywróć" />
+            <Button fx:id="deleteButton" mnemonicParsing="false" onMouseClicked="#loadWindow" prefHeight="50.0" prefWidth="200.0" text="Usuń" />
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Images/fridge.png" />

@@ -1,10 +1,11 @@
 package sample.Controllers;
 
 import javafx.application.Platform;
-import javafx.collections.transformation.FilteredList;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import sample.Model.Source;
 import sample.UsableClasses.Recipe;
 
 import java.sql.*;
@@ -35,6 +36,8 @@ public class RecipesOptionController extends ToolbarController {
     private Date date;
     private String time;
     private String stages;
+
+
 
     void setRecipesController(RecipesController recipesController)
     {
@@ -72,7 +75,7 @@ public class RecipesOptionController extends ToolbarController {
                 endActionButton.setText("Dodaj");
                 endActionButton.setOnMouseClicked(event -> {
                     setOptionData();
-                    addRecipe(name,type,ingredients,date,time,stages);
+                    addRecipe();
                 });
             }
             else if(selectedButtonName.equals("searchButton"))
@@ -82,7 +85,7 @@ public class RecipesOptionController extends ToolbarController {
                 endActionButton.setText("Szukaj");
                 endActionButton.setOnMouseClicked(event -> {
                     setOptionData();
-                    searchRecipe(name,type,ingredients,date,time,stages);
+                    searchRecipe();
                 });
             }
             else
@@ -101,7 +104,7 @@ public class RecipesOptionController extends ToolbarController {
                     endActionButton.setText("Zapisz");
                     endActionButton.setOnMouseClicked(event -> {
                         setOptionData();
-                        editRecipe(name,type,ingredients,date,time,stages);
+                        editRecipe();
                     });
                 }
                 else if(selectedButtonName.equals("deleteButton"))
@@ -118,7 +121,7 @@ public class RecipesOptionController extends ToolbarController {
                     endActionButton.setText("Usuń");
                     endActionButton.setOnMouseClicked(event -> {
                         setOptionData();
-                        deleteRecipe(name,type,ingredients,date,time,stages);
+                        deleteRecipe();
                     });
                 }
             }
@@ -138,9 +141,12 @@ public class RecipesOptionController extends ToolbarController {
     }
 
     @FXML
-    private void addRecipe(String name, String type, String ingredients, Date date, String time, String stages)
+    private void addRecipe()
     {
-        try {
+        Source.getInstance().open();
+        Source.getInstance().addRecipe(name,type,ingredients,date,time,stages);
+        Source.getInstance().close();
+        /*try {
             Connection connection = DriverManager.getConnection("jdbc:sqlite:baza.db");
             Statement statement = connection.createStatement();
             statement.execute("INSERT INTO recipes('nazwa', 'typ', 'składniki', 'data', 'czas','etapy') " +
@@ -153,15 +159,15 @@ public class RecipesOptionController extends ToolbarController {
             statement.close();
             connection.close();
 
-            recipes.getItems().add(new Recipe(name,type,ingredients,date.toString(),time,stages));
-            window.close();
+          //  recipes.getItems().add(new Recipe(name,type,ingredients,date.toString(),time,stages));
+        //    window.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
-    private void editRecipe(String name, String type, String ingredients, Date date, String time, String stages)
+    private void editRecipe()
     {
         try {
             Connection connection = DriverManager.getConnection("jdbc:sqlite:baza.db");
@@ -196,7 +202,7 @@ public class RecipesOptionController extends ToolbarController {
         }
     }
 
-    private void deleteRecipe(String name, String type, String ingredients, Date date, String time, String stages)
+    private void deleteRecipe()
     {
         try{
             Connection connection = DriverManager.getConnection("jdbc:sqlite:baza.db");
@@ -219,7 +225,7 @@ public class RecipesOptionController extends ToolbarController {
         }
     }
 
-    private void searchRecipe(String name, String type, String ingredients, Date date, String time, String stages)
+    private void searchRecipe()
     {
         try {
             Connection connection = DriverManager.getConnection("jdbc:sqlite:baza.db");

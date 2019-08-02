@@ -49,7 +49,7 @@
                            <Insets left="50.0" top="20.0" />
                        </VBox.margin>
                    </Button>
-                  <Button mnemonicParsing="false" styleClass="menuButton" text="Kalendarz">
+                  <Button fx:id="calendar" mnemonicParsing="false" onMouseClicked="#mainMenuClick" styleClass="menuButton" text="Kalendarz">
                       <graphic>
                           <ImageView fitHeight="35.0" fitWidth="30.0">
                               <Image url="@Images/calendar.png" />

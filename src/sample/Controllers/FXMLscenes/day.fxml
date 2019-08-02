@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="day" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="135.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.CalendarController">
+   <children>
+      <VBox alignment="TOP_CENTER">
+         <children>
+            <Label text="XX-XX-XXXX" />
+            <ComboBox prefWidth="150.0" />
+            <ScrollPane prefHeight="200.0" prefWidth="200.0">
+               <content>
+                  <VBox prefHeight="200.0" prefWidth="128.0" />
+               </content>
+            </ScrollPane>
+         </children>
+      </VBox>
+   </children>
+</VBox>
