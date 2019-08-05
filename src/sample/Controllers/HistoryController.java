@@ -14,7 +14,6 @@ import javafx.scene.input.MouseEvent;
 import sample.Model.Dish;
 import sample.Model.Source;
 
-import java.sql.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -83,12 +82,13 @@ public class HistoryController {
     }
 
     private void fillStats(PieChart chart, TableView<Dish> table) {
-        FilteredList weekly = table.getItems().filtered(p -> {
+        FilteredList filteredList = table.getItems().filtered(p -> {
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(new Date());
 
-            if (chart.getId().equals("dishWeek") || chart.getId().equals("foodWeek")) cal.add(Calendar.DATE, -6);
+            if (chart.getId().equals("dishWeek") || chart.getId().equals("foodWeek"))
+                cal.add(Calendar.DATE, -6);
             else if (chart.getId().equals("dishMonth") || chart.getId().equals("foodMonth"))
                 cal.add(Calendar.MONTH, -1);
 
@@ -97,6 +97,7 @@ public class HistoryController {
             Date dishDoneOn = new Date();
             try {
                 dishDoneOn = format.parse(p.getDate());
+
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -104,7 +105,7 @@ public class HistoryController {
         });
 
         HashMap<String, Double> dataSet = new HashMap<>();
-        for (Object o : weekly) {
+        for (Object o : filteredList) {
             Dish dish = ((Dish) o);
 
             if (dataSet.containsKey(dish.getName())) dataSet.replace(dish.getName(), dataSet.get(dish.getName()) + dish.getWeight());

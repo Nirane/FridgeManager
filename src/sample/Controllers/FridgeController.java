@@ -30,6 +30,12 @@ public class FridgeController {
 
     public void initialize()
     {
+        tableName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        tableType.setCellValueFactory(new PropertyValueFactory<>("type"));
+        tableWeight.setCellValueFactory(new PropertyValueFactory<>("weight"));
+        tableDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        tableOwner.setCellValueFactory(new PropertyValueFactory<>("Owner"));
+
         updateFridge();
     }
 
@@ -65,12 +71,6 @@ public class FridgeController {
             Statement statement = connection.createStatement();
             statement.execute("SELECT * FROM products ORDER BY nazwa");
             ResultSet resultSet = statement.getResultSet();
-
-            tableName.setCellValueFactory(new PropertyValueFactory<>("name"));
-            tableType.setCellValueFactory(new PropertyValueFactory<>("type"));
-            tableWeight.setCellValueFactory(new PropertyValueFactory<>("weight"));
-            tableDate.setCellValueFactory(new PropertyValueFactory<>("date"));
-            tableOwner.setCellValueFactory(new PropertyValueFactory<>("Owner"));
 
             products.getItems().clear();
 

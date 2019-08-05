@@ -16,6 +16,7 @@ public class MainMenuController extends ToolbarController {
     @FXML private Button recipes;
     @FXML private Button history;
     @FXML private Button calendar;
+    @FXML private Button creators;
     @FXML private HBox content;
 
     private Node selectedNode;
@@ -26,6 +27,7 @@ public class MainMenuController extends ToolbarController {
     private Node recipeNode;
     private Node historyNode;
     private Node calendarNode;
+    private Node creatorsNode;
 
     public void initialize()
     {
@@ -35,6 +37,7 @@ public class MainMenuController extends ToolbarController {
             fridgeNode = FXMLLoader.load(getClass().getResource("FXMLscenes/fridge.fxml"));
             historyNode = FXMLLoader.load(getClass().getResource("FXMLscenes/history.fxml"));
             calendarNode = FXMLLoader.load(getClass().getResource("FXMLscenes/calendar.fxml"));
+            creatorsNode = FXMLLoader.load(getClass().getResource("FXMLscenes/creators.fxml"));
             selectedButton = welcome;
             selectedButton.getStyleClass().add(2,"menuButtonSelected");
             selectedNode = welcomeNode;
@@ -59,6 +62,7 @@ public class MainMenuController extends ToolbarController {
         else if(event.getSource().equals(welcome)) selectedNode = welcomeNode;
         else if(event.getSource().equals(history)) selectedNode = historyNode;
         else if(event.getSource().equals(calendar)) selectedNode = calendarNode;
+        else if(event.getSource().equals(creators)) selectedNode = creatorsNode;
 
         content.getChildren().add(selectedNode);
     }
