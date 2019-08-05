@@ -11,7 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import sample.UsableClasses.Food;
+import sample.Model.Food;
 
 import java.io.IOException;
 import java.sql.*;

@@ -6,9 +6,9 @@ module FridgeManager {
     requires javafx.base;
 
     exports sample.Controllers;
-    exports sample.UsableClasses;
+    exports sample.Model;
 
-    opens sample.UsableClasses;
+    opens sample.Model;
     opens sample.Controllers;
     opens sample;
 }

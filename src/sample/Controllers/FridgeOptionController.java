@@ -4,7 +4,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import sample.UsableClasses.Food;
+import sample.Model.Food;
 
 import java.sql.*;
 import java.time.LocalDate;

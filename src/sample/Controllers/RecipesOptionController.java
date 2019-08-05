@@ -1,14 +1,14 @@
 package sample.Controllers;
 
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import sample.Model.RecipesData;
 import sample.Model.Source;
-import sample.UsableClasses.Recipe;
+import sample.Model.Recipe;
 
-import java.sql.*;
+import java.sql.Date;
 import java.time.LocalDate;
 
 public class RecipesOptionController extends ToolbarController {
@@ -33,11 +33,9 @@ public class RecipesOptionController extends ToolbarController {
     private String name;
     private String type;
     private String ingredients;
-    private Date date;
+    private String date;
     private String time;
     private String stages;
-
-
 
     void setRecipesController(RecipesController recipesController)
     {
@@ -109,12 +107,12 @@ public class RecipesOptionController extends ToolbarController {
                 }
                 else if(selectedButtonName.equals("deleteButton"))
                 {
-                    nameField.setEditable(false);
-                    typeField.setEditable(false);
-                    ingredientsField.setEditable(false);
+                    nameField.setDisable(true);
+                    typeField.setDisable(true);
+                    ingredientsField.setDisable(true);
                     dateField.setDisable(true);
                     timeField.setDisable(true);
-                    stagesField.setEditable(false);
+                    stagesField.setDisable(true);
 
                     window.setTitle("Usuń przepis");
                     windowName.setText("Usuń przepis");
@@ -135,136 +133,42 @@ public class RecipesOptionController extends ToolbarController {
         name = nameField.getText();
         type = typeField.getText();
         ingredients = ingredientsField.getText();
-        if(dateField.getValue()!=null) date = Date.valueOf(dateField.getValue());
-        if(timeField.getValue()!=null) time = timeField.getValue();
+        date = (dateField.getValue()!=null) ? Date.valueOf(dateField.getValue()).toString() : "";
+        time = (timeField.getValue()!=null) ? timeField.getValue() : "";
         stages = stagesField.getText();
     }
 
-    @FXML
     private void addRecipe()
     {
-        Source.getInstance().open();
         Source.getInstance().addRecipe(name,type,ingredients,date,time,stages);
-        Source.getInstance().close();
-        /*try {
-            Connection connection = DriverManager.getConnection("jdbc:sqlite:baza.db");
-            Statement statement = connection.createStatement();
-            statement.execute("INSERT INTO recipes('nazwa', 'typ', 'składniki', 'data', 'czas','etapy') " +
-                    "VALUES('" + name + "', " +
-                    "'" + type + "', " +
-                    "'" + ingredients + "', " +
-                    "'" + date + "', " +
-                    "'" + time + "'," +
-                    "'" + stages + "')");
-            statement.close();
-            connection.close();
-
-          //  recipes.getItems().add(new Recipe(name,type,ingredients,date.toString(),time,stages));
-        //    window.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }*/
+        RecipesData.getInstance().addRecipe(new Recipe(name,type,ingredients,date,time,stages));
+        window.close();
     }
 
     private void editRecipe()
     {
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:sqlite:baza.db");
-            Statement statement = connection.createStatement();
-            statement.execute("UPDATE recipes " +
-                    "SET nazwa = '" + name +
-                    "', typ = '" + type +
-                    "', składniki = '" + ingredients +
-                    "', data = '" + date +
-                    "', czas = '" + time  +
-                    "', etapy = '" + stages +"' " +
-                    "WHERE nazwa = '" + selectedRecipe.getRecipe() +
-                    "' AND typ = '" + selectedRecipe.getType() +
-                    "' AND składniki = '" + selectedRecipe.getIngredients() +
-                    "' AND data = '" +selectedRecipe.getDate() +
-                    "' AND czas = '" +selectedRecipe.getTime() +
-                    "' AND etapy = '" + selectedRecipe.getStages() +"'");
-            statement.close();
-            connection.close();
-
-            recipes.getSelectionModel().getSelectedItem().setRecipe(name);
-            recipes.getSelectionModel().getSelectedItem().setType(type);
-            recipes.getSelectionModel().getSelectedItem().setIngredients(ingredients);
-            recipes.getSelectionModel().getSelectedItem().setDate(date.toString());
-            recipes.getSelectionModel().getSelectedItem().setTime(time);
-            recipes.getSelectionModel().getSelectedItem().setStages(stages);
-            recipesController.fillStagesDescription();
-            window.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        Source.getInstance().editRecipe(selectedRecipe, name,type,ingredients,date,time,stages);
+        selectedRecipe.setRecipe(name);
+        selectedRecipe.setType(type);
+        selectedRecipe.setIngredients(ingredients);
+        selectedRecipe.setDate(date);
+        selectedRecipe.setTime(time);
+        selectedRecipe.setStages(stages);
+        recipesController.fillStagesDescription();
+        window.close();
     }
 
     private void deleteRecipe()
     {
-        try{
-            Connection connection = DriverManager.getConnection("jdbc:sqlite:baza.db");
-            Statement statement = connection.createStatement();
-            statement.execute("DELETE FROM recipes " +
-                    "WHERE nazwa = '" + name +
-                    "' AND typ = '" + type +
-                    "' AND składniki = '" + ingredients +
-                    "' AND data = '" + date +
-                    "' AND czas = '" + time +
-                    "' AND etapy = '" + stages + "'");
-            statement.close();
-            connection.close();
-            recipes.getItems().remove(selectedRecipe);
-            stagesDescription.setText("");
-            window.close();
-            
-        }catch (SQLException e) {
-            e.printStackTrace();
-        }
+        Source.getInstance().deleteRecipe(name,type,ingredients,date,time,stages);
+        RecipesData.getInstance().removeRecipe(selectedRecipe);
+        window.close();
     }
 
     private void searchRecipe()
     {
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:sqlite:baza.db");
-            Statement statement = connection.createStatement();
-
-            String sql = "SELECT * FROM recipes WHERE ";
-
-            if(!name.trim().isEmpty()) sql += "nazwa LIKE '%" + name + "%'";
-            else sql += "nazwa LIKE '%'";
-            if(!type.trim().isEmpty()) sql += " AND typ LIKE '%" + type + "%'";
-            else sql += " AND typ LIKE '%'";
-            if(!ingredients.trim().isEmpty()) sql += " AND składniki LIKE '%" + ingredients + "%'";
-            else sql += " AND składniki LIKE '%'";
-            if(date!=null) sql += " AND data LIKE '%" + date + "%'";
-            else sql += " AND data LIKE '%'";
-            if(time!=null) sql += " AND czas LIKE '%" + time + "%'";
-            else sql += " AND czas LIKE '%'";
-            if(!stages.trim().isEmpty()) sql += " AND etapy LIKE '%" + stages + "%'";
-            else sql += " AND etapy LIKE '%'";
-
-            statement.execute(sql);
-            recipes.getItems().clear();
-            ResultSet results = statement.getResultSet();
-            while (results.next())
-            {
-                String nameQ = results.getString("nazwa");
-                String typeQ = results.getString("typ");
-                String ingredientsQ = results.getString("składniki");
-                String dateQ = results.getString("data");
-                String timeQ = results.getString("czas");
-                String stagesQ = results.getString("etapy");
-                recipes.getItems().add(new Recipe(nameQ,typeQ,ingredientsQ,dateQ,timeQ, stagesQ));
-            }
-
-            statement.close();
-            connection.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        RecipesData.getInstance().setRecipes(Source.getInstance().searchRecipe(name,type,ingredients,date,time,stages));
+        recipesController.fillStagesDescription();
+        window.close();
     }
 }

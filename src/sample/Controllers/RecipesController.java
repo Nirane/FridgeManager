@@ -12,10 +12,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import sample.UsableClasses.Recipe;
+import sample.Model.RecipesData;
+import sample.Model.Source;
+import sample.Model.Recipe;
 
 import java.io.IOException;
-import java.sql.*;
 
 public class RecipesController extends ToolbarController {
 
@@ -32,27 +33,15 @@ public class RecipesController extends ToolbarController {
 
     public void initialize()
     {
-        initializeTable();
-        updateRecipes();
-    }
+        Source.getInstance().initializeRecipes();
 
-    private void initializeTable()
-    {
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:sqlite:baza.db");
-            Statement statement = connection.createStatement();
-            statement.execute("CREATE TABLE IF NOT EXISTS " +
-                    "recipes(nazwa TEXT NOT NULL, " +
-                    "typ TEXT, " +
-                    "składniki TEXT NOT NULL, " +
-                    "data DATE, " +
-                    "czas TEXT," +
-                    "etapy TEXT )");
-            statement.close();
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        tableRecipe.setCellValueFactory(new PropertyValueFactory<>("recipe"));
+        tableType.setCellValueFactory(new PropertyValueFactory<>("type"));
+        tableIngredients.setCellValueFactory(new PropertyValueFactory<>("ingredients"));
+        tableDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        tableTime.setCellValueFactory(new PropertyValueFactory<>("time"));
+
+        recipes.setItems(RecipesData.getInstance().getRecipes());
     }
 
     @FXML
@@ -81,42 +70,12 @@ public class RecipesController extends ToolbarController {
                 e.printStackTrace();
             }
         }
-
     }
 
     @FXML
     private void updateRecipes()
     {
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:sqlite:baza.db");
-            Statement statement = connection.createStatement();
-            statement.execute("SELECT * FROM recipes");
-            ResultSet results = statement.getResultSet();
-
-            tableRecipe.setCellValueFactory(new PropertyValueFactory<>("recipe"));
-            tableType.setCellValueFactory(new PropertyValueFactory<>("type"));
-            tableIngredients.setCellValueFactory(new PropertyValueFactory<>("ingredients"));
-            tableDate.setCellValueFactory(new PropertyValueFactory<>("date"));
-            tableTime.setCellValueFactory(new PropertyValueFactory<>("time"));
-
-            recipes.getItems().clear();
-
-            while(results.next())
-            {
-                String name = results.getString("nazwa");
-                String type = results.getString("typ");
-                String ingredients = results.getString("składniki");
-                String date = results.getString("data");
-                String time = results.getString("czas");
-                String stages = results.getString("etapy");
-                recipes.getItems().add(new Recipe(name,type,ingredients,date,time, stages));
-            }
-            statement.close();
-            connection.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        RecipesData.getInstance().setRecipes(Source.getInstance().loadRecipes());
     }
 
     @FXML
@@ -135,5 +94,6 @@ public class RecipesController extends ToolbarController {
             }
             stagesDescription.setText(builder.toString());
         }
+        else stagesDescription.setText("");
     }
 }

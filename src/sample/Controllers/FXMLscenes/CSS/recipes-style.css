@@ -76,3 +76,7 @@
 .tab-pane .tab:selected .tab-label{
     -fx-text-fill: #292826;
 }
+
+.chart-pie {
+    -fx-cursor: hand;
+}
