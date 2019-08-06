@@ -24,7 +24,7 @@ public class Source{
         return instance;
     }
 
-    //Handling Recipes
+    //Recipes String
     private static final String TABLE_RECIPES = "recipes";
     private static final String COLUMN_RECIPES_NAME = "nazwa";
     private static final String COLUMN_RECIPES_TYPE = "typ";
@@ -66,8 +66,8 @@ public class Source{
 
     private static final String LOAD_RECIPES = "SELECT * FROM " + TABLE_RECIPES + " ORDER BY " + COLUMN_RECIPES_NAME;
 
-    //Handling History
-    //Recipes
+    //History Strings
+    //Recipes strings
     private static final String TABLE_HISTORY_RECIPES = "recipesHistory";
     private static final String COLUMN_HISTORY_RECIPES_NAME = "nazwa";
     private static final String COLUMN_HISTORY_RECIPES_DATE = "data";
@@ -94,6 +94,8 @@ public class Source{
     private static final String LOAD_HISTORY_FOOD = "SELECT * FROM " + TABLE_HISTORY_FOOD + " ORDER BY " +
             COLUMN_HISTORY_FOOD_NAME + " DESC";
 
+    //Calendar Strings
+
     private boolean open()
     {
         try{
@@ -117,6 +119,7 @@ public class Source{
         }
     }
 
+    //Recipes section
     public void initializeRecipes()
     {
         if(open())
@@ -290,6 +293,7 @@ public class Source{
         return resultList;
     }
 
+    //History section
     public void initializeHistoryRecipes()
     {
         if(open())
@@ -383,5 +387,56 @@ public class Source{
         }
 
         return resultList;
+    }
+
+    //Calendar section
+    public List<?> loadFoodForCombobox()
+    {
+        return null;
+    }
+
+    public List<?> loadRecipesForCombobox()
+    {
+        return null;
+    }
+
+    public void initializeCalendarRecipes()
+    {
+
+    }
+
+    public List<?> loadCalendarRecipes()
+    {
+        return null;
+    }
+
+    public void addCalendarRecipe()
+    {
+
+    }
+
+    public void deleteCalendarRecipe()
+    {
+
+    }
+
+    public void initializeCalendarFood()
+    {
+
+    }
+
+    public List<?> loadCalendarFood()
+    {
+        return null;
+    }
+
+    public void addCalendarFood()
+    {
+
+    }
+
+    public void deleteCalendarFood()
+    {
+
     }
 }

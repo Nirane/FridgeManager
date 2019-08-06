@@ -1,25 +1,63 @@
 package sample.Controllers;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
+import sample.Model.Food;
+import sample.Model.Recipe;
 
 import java.time.LocalDate;
-import java.time.chrono.ChronoLocalDate;
-import java.time.chrono.Chronology;
-import java.time.temporal.ChronoUnit;
-import java.util.Calendar;
 
 public class CalendarController {
 
-    @FXML private VBox content;
+    @FXML private DatePicker datePicker;
+
+    @FXML private ListView<Recipe> recipeListView;
+    @FXML private ComboBox<Recipe> recipeCombobox;
+    @FXML private TextArea recipeIngredients;
+
+    @FXML private ListView<Food> foodListView;
+    @FXML private ComboBox<String> foodCombobox;
 
     public void initialize()
     {
-       // Calendar calendar = Calendar.getInstance();
-        ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setPrefHeight(90);
-        scrollPane.setPrefWidth(135);
-        //content.getChildren().add(scrollPane);
+        datePicker.setValue(LocalDate.now());
+    }
+
+    private void setComboboxes()
+    {
+
+    }
+
+    private void onDateChange()
+    {
+
+    }
+
+    private void addFood()
+    {
+
+    }
+
+    private void deleteFood()
+    {
+
+    }
+
+    private void addRecipe()
+    {
+
+    }
+
+    private void deleteRecipe()
+    {
+
+    }
+
+    private void fillIngredientsDescription()
+    {
+
     }
 }
