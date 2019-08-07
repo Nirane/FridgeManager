@@ -3,15 +3,15 @@ package sample.Model;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Recipe {
-    private SimpleStringProperty recipe;
+    private SimpleStringProperty name;
     private SimpleStringProperty type;
     private SimpleStringProperty ingredients;
     private SimpleStringProperty date;
     private SimpleStringProperty time;
     private String stages;
 
-    public Recipe(String recipe, String type, String ingredients, String date, String time, String stages) {
-        this.recipe = new SimpleStringProperty(recipe);
+    public Recipe(String name, String type, String ingredients, String date, String time, String stages) {
+        this.name = new SimpleStringProperty(name);
         this.type = new SimpleStringProperty(type);
         this.ingredients = new SimpleStringProperty(ingredients);
         this.date = new SimpleStringProperty(date);
@@ -19,16 +19,16 @@ public class Recipe {
         this.stages = stages;
     }
 
-    public String getRecipe() {
-        return recipe.get();
+    public String getName() {
+        return name.get();
     }
 
-    public SimpleStringProperty recipeProperty() {
-        return recipe;
+    public SimpleStringProperty nameProperty() {
+        return name;
     }
 
-    public void setRecipe(String recipe) {
-        this.recipe.set(recipe);
+    public void setName(String name) {
+        this.name.set(name);
     }
 
     public String getType() {

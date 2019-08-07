@@ -88,7 +88,7 @@ public class RecipesOptionController extends ToolbarController {
             }
             else
             {
-                nameField.setText(selectedRecipe.getRecipe());
+                nameField.setText(selectedRecipe.getName());
                 typeField.setText(selectedRecipe.getType());
                 ingredientsField.setText(selectedRecipe.getIngredients());
                 dateField.setValue(LocalDate.parse(selectedRecipe.getDate()));
@@ -148,7 +148,7 @@ public class RecipesOptionController extends ToolbarController {
     private void editRecipe()
     {
         Source.getInstance().editRecipe(selectedRecipe, name,type,ingredients,date,time,stages);
-        selectedRecipe.setRecipe(name);
+        selectedRecipe.setName(name);
         selectedRecipe.setType(type);
         selectedRecipe.setIngredients(ingredients);
         selectedRecipe.setDate(date);

@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Source{
-//transactions if not exists dla insert i ?edit?
+    //transactions if not exists dla insert i ?edit?
+    //edit food
+    //search food
+    //calendar
 
     private static final String DB_NAME = "baza.db";
     private static final String CONNECTION_STRING = "jdbc:sqlite:" + DB_NAME;
@@ -24,7 +27,34 @@ public class Source{
         return instance;
     }
 
-    //Recipes String
+    //Food Strings
+    private static final String TABLE_FOOD = "food";
+    private static final String COLUMN_FOOD_NAME = "nazwa";
+    private static final String COLUMN_FOOD_TYPE = "typ";
+    private static final String COLUMN_FOOD_WEIGHT = "waga";
+    private static final String COLUMN_FOOD_DATE = "data";
+    private static final String COLUMN_FOOD_OWNER = "właściciel";
+    private static final int INDEX_FOOD_NAME = 1;
+    private static final int INDEX_FOOD_TYPE = 2;
+    private static final int INDEX_FOOD_WEIGHT = 3;
+    private static final int INDEX_FOOD_DATE = 4;
+    private static final int INDEX_FOOD_OWNER = 5;
+
+    private static final String INITIALIZE_FOOD = "CREATE TABLE IF NOT EXISTS " + TABLE_FOOD + "(" +
+            COLUMN_FOOD_NAME + " TEXT NOT NULL, " + COLUMN_FOOD_TYPE + " TEXT, " + COLUMN_FOOD_WEIGHT + " DECIMAL, "
+            + COLUMN_FOOD_DATE + " DATE, " + COLUMN_FOOD_OWNER + " TEXT)";
+
+    private static final String INSERT_FOOD = "INSERT INTO " + TABLE_FOOD + "('" + COLUMN_FOOD_NAME + "', '" +
+            COLUMN_FOOD_TYPE + "', '" + COLUMN_FOOD_WEIGHT + "', '" + COLUMN_FOOD_DATE + "', '" +
+            COLUMN_FOOD_OWNER + "')" + " VALUES(?,?,?,?,?)";
+
+    private static final String DELETE_FOOD = "DELETE FROM " + TABLE_FOOD + " WHERE " +
+            COLUMN_FOOD_NAME + " = ? AND " +  COLUMN_FOOD_TYPE + " = ? AND " + COLUMN_FOOD_WEIGHT + " = ? AND " +
+            COLUMN_FOOD_DATE + " = ? AND " + COLUMN_FOOD_OWNER + " = ?";
+
+    private static final String LOAD_FOOD = "SELECT * FROM " + TABLE_FOOD + " ORDER BY " + COLUMN_FOOD_NAME;
+
+    //Recipes Strings
     private static final String TABLE_RECIPES = "recipes";
     private static final String COLUMN_RECIPES_NAME = "nazwa";
     private static final String COLUMN_RECIPES_TYPE = "typ";
@@ -117,6 +147,108 @@ public class Source{
             System.out.println("Couldn't close the database");
             e.printStackTrace();
         }
+    }
+
+    //Fridge section
+    public void initializeFood()
+    {
+        if(open())
+        {
+            try {
+                PreparedStatement initializeFoodStmt = connection.prepareStatement(INITIALIZE_FOOD);
+                initializeFoodStmt.execute();
+                initializeFoodStmt.close();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                close();
+            }
+        }
+    }
+
+    public List<Food> loadFood()
+    {
+        List<Food> foodList = new ArrayList<>();
+        if(open())
+        {
+            try {
+                PreparedStatement loadFoodStmt = connection.prepareStatement(LOAD_FOOD);
+                ResultSet resultSet = loadFoodStmt.executeQuery();
+
+                while(resultSet.next())
+                {
+                    String name = resultSet.getString(INDEX_FOOD_NAME);
+                    String type = resultSet.getString(INDEX_FOOD_TYPE);
+                    double weight = resultSet.getDouble(INDEX_FOOD_WEIGHT);
+                    String date = resultSet.getString(INDEX_FOOD_DATE);
+                    String owner = resultSet.getString(INDEX_FOOD_OWNER);
+                    foodList.add(new Food(name,type,weight,date,owner));
+                }
+
+                resultSet.close();
+                loadFoodStmt.close();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                close();
+            }
+        }
+        return foodList;
+    }
+
+    public void addFood(String name, String type, double weight, String date, String owner)
+    {
+        if(open())
+        {
+            try {
+                PreparedStatement insertFoodStmt = connection.prepareStatement(INSERT_FOOD);
+                insertFoodStmt.setString(1,name);
+                insertFoodStmt.setString(2,type);
+                insertFoodStmt.setDouble(3,weight);
+                insertFoodStmt.setString(4,date);
+                insertFoodStmt.setString(5,owner);
+                insertFoodStmt.execute();
+                insertFoodStmt.close();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                close();
+            }
+        }
+    }
+
+    public void deleteFood(String name, String type, double weight, String date, String owner) {
+        if (open())
+        {
+            try {
+                PreparedStatement deleteFoodStmt = connection.prepareStatement(DELETE_FOOD);
+                deleteFoodStmt.setString(1,name);
+                deleteFoodStmt.setString(2,type);
+                deleteFoodStmt.setDouble(3,weight);
+                deleteFoodStmt.setString(4,date);
+                deleteFoodStmt.setString(5,owner);
+                deleteFoodStmt.execute();
+                deleteFoodStmt.close();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                close();
+            }
+        }
+    }
+
+    public void editFood(Food selectedFood, String name, String type, double weight, String date, String owner)
+    {
+
+    }
+
+    public List<Food> searchFood(String name, String type, double weight, String date, String owner)
+    {
+        return null;
     }
 
     //Recipes section
@@ -234,7 +366,7 @@ public class Source{
                 updateRecipesStmt.setString(4, date);
                 updateRecipesStmt.setString(5, time);
                 updateRecipesStmt.setString(6, stages);
-                updateRecipesStmt.setString(7, selectedRecipe.getRecipe());
+                updateRecipesStmt.setString(7, selectedRecipe.getName());
                 updateRecipesStmt.setString(8, selectedRecipe.getType());
                 updateRecipesStmt.setString(9, selectedRecipe.getIngredients());
                 updateRecipesStmt.setString(10, selectedRecipe.getDate());

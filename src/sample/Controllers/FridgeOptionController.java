@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import sample.Model.Food;
+import sample.Model.FoodData;
+import sample.Model.Source;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -28,10 +30,10 @@ public class FridgeOptionController extends ToolbarController {
     private String name;
     private String type;
     private double weight;
-    private Date date;
+    private String date;
     private String owner;
 
-    private Food selectedProduct;
+    private Food selectedFood;
 
     void setProducts(TableView<Food> products)
     {
@@ -47,7 +49,7 @@ public class FridgeOptionController extends ToolbarController {
     {
         Platform.runLater(() -> {
             window = (Stage) nameField.getScene().getWindow();
-            selectedProduct = products.getSelectionModel().getSelectedItem();
+            selectedFood = products.getSelectionModel().getSelectedItem();
 
             if(selectedButtonName.equals("addButton"))
             {
@@ -113,25 +115,16 @@ public class FridgeOptionController extends ToolbarController {
         this.name = nameField.getText();
         this.type = typeField.getText();
         if(weightField.getValue()!=null) this.weight = weightField.getValue();
-        if(dateField.getValue()!=null) this.date = Date.valueOf(dateField.getValue());
+        this.date = (dateField.getValue()!=null) ? Date.valueOf(dateField.getValue()).toString() : "";
         this.owner = ownerField.getText();
     }
 
     @FXML
     private void addProduct()
     {
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:sqlite:baza.db");
-            Statement statement = connection.createStatement();
-            statement.execute("INSERT INTO products VALUES('" + name+ "', '"+ type + "', " + weight + ", '" + date + "', '"+ owner +"'" + ")");
-            products.getItems().add(new Food(name,type,weight,date.toString(),owner));
-            statement.close();
-            connection.close();
-            window.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        Source.getInstance().addFood(name, type, weight, date, owner);
+        FoodData.getInstance().addFood(new Food(name,type,weight,date,owner));
+        window.close();
     }
 
     @FXML
@@ -142,8 +135,6 @@ public class FridgeOptionController extends ToolbarController {
             Statement statement = connection.createStatement();
 
             String sql = "SELECT * FROM products WHERE ";
-
-            System.out.println(weight);
 
             if(!name.trim().isEmpty()) sql += "nazwa LIKE '%" + name + "%'";
             else sql += "nazwa LIKE '%'";
@@ -191,19 +182,19 @@ public class FridgeOptionController extends ToolbarController {
                     "', waga = '" + weight +
                     "', data = '" + date +
                     "', właściciel = '" + owner +"'" +
-                    "WHERE nazwa = '" + selectedProduct.getName() +
-                    "' AND typ = '" + selectedProduct.getType() +
-                    "' AND waga = '" + selectedProduct.getWeight() +
-                    "' AND data = '" +selectedProduct.getDate() +
-                    "' AND właściciel = '" + selectedProduct.getOwner() +"'");
+                    "WHERE nazwa = '" + selectedFood.getName() +
+                    "' AND typ = '" + selectedFood.getType() +
+                    "' AND waga = '" + selectedFood.getWeight() +
+                    "' AND data = '" + selectedFood.getDate() +
+                    "' AND właściciel = '" + selectedFood.getOwner() +"'");
             statement.close();
             connection.close();
 
-            selectedProduct.setName(name);
-            selectedProduct.setType(type);
-            selectedProduct.setWeight(weight);
-            selectedProduct.setDate(date.toString());
-            selectedProduct.setOwner(owner);
+            selectedFood.setName(name);
+            selectedFood.setType(type);
+            selectedFood.setWeight(weight);
+            selectedFood.setDate(date);
+            selectedFood.setOwner(owner);
             window.close();
 
         } catch (SQLException e) {
@@ -214,25 +205,8 @@ public class FridgeOptionController extends ToolbarController {
     @FXML
     private void deleteProduct()
     {
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:sqlite:baza.db");
-
-            Statement statement = connection.createStatement();
-            statement.execute("DELETE FROM products WHERE " +
-                    "nazwa = '" + name +
-                    "' AND typ = '" + type +
-                    "' AND waga = '" + weight +
-                    "' AND data = '" + date +
-                    "' AND właściciel = '" + owner +"'");
-
-            products.getItems().remove(selectedProduct);
-
-            statement.close();
-            connection.close();
-            window.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        Source.getInstance().deleteFood(name,type,weight,date,owner);
+        FoodData.getInstance().removeFood(selectedFood);
+        window.close();
     }
 }

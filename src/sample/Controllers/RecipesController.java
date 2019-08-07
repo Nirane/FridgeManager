@@ -5,27 +5,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import sample.Model.Recipe;
 import sample.Model.RecipesData;
 import sample.Model.Source;
-import sample.Model.Recipe;
 
 import java.io.IOException;
 
 public class RecipesController extends ToolbarController {
 
     @FXML private TableView<Recipe> recipes;
-    @FXML private TableColumn<Recipe, String> tableRecipe;
-    @FXML private TableColumn<Recipe, String> tableType;
-    @FXML private TableColumn<Recipe, String> tableIngredients;
-    @FXML private TableColumn<Recipe, String> tableDate;
-    @FXML private TableColumn<Recipe, String> tableTime;
 
     @FXML private TextArea stagesDescription;
     @FXML private Button addButton;
@@ -34,13 +27,6 @@ public class RecipesController extends ToolbarController {
     public void initialize()
     {
         Source.getInstance().initializeRecipes();
-
-        tableRecipe.setCellValueFactory(new PropertyValueFactory<>("recipe"));
-        tableType.setCellValueFactory(new PropertyValueFactory<>("type"));
-        tableIngredients.setCellValueFactory(new PropertyValueFactory<>("ingredients"));
-        tableDate.setCellValueFactory(new PropertyValueFactory<>("date"));
-        tableTime.setCellValueFactory(new PropertyValueFactory<>("time"));
-
         recipes.setItems(RecipesData.getInstance().getRecipes());
     }
 
