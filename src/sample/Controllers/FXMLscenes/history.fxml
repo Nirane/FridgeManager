@@ -8,26 +8,39 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <TabPane fx:id="tabPane" prefHeight="600.0" prefWidth="950.0" styleClass="background" stylesheets="@CSS/recipes-style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.HistoryController">
    <tabs>
-      <Tab closable="false" text="produkty">
+      <Tab closable="false" onSelectionChanged="#makeChartLabelNotVisible" text="produkty">
          <content>
             <HBox prefHeight="580.0" prefWidth="950.0">
                <children>
                   <TableView fx:id="food" prefHeight="550.0" prefWidth="325.0">
                     <columns>
-                      <TableColumn fx:id="tableFoodName" prefWidth="129.0" text="produkt" />
-                        <TableColumn fx:id="tableFoodWeight" prefWidth="61.0" text="waga" />
-                      <TableColumn fx:id="tableFoodDate" prefWidth="159.0" text="data spożycia" />
+                      <TableColumn prefWidth="129.0" text="produkt">
+                         <cellValueFactory>
+                            <PropertyValueFactory property="name" />
+                         </cellValueFactory>
+                      </TableColumn>
+                        <TableColumn prefWidth="61.0" text="waga">
+                           <cellValueFactory>
+                             <PropertyValueFactory property="weight" />
+                           </cellValueFactory>
+                        </TableColumn>
+                      <TableColumn prefWidth="159.0" text="data spożycia">
+                         <cellValueFactory>
+                            <PropertyValueFactory property="date" />
+                         </cellValueFactory>
+                      </TableColumn>
                     </columns>
                   </TableView>
-                  <AnchorPane prefHeight="550.0" prefWidth="600.0">
+                  <AnchorPane fx:id="foodPane" prefHeight="550.0" prefWidth="600.0">
                      <children>
-                        <Label fx:id="chartLabel" alignment="CENTER" contentDisplay="TEXT_ONLY" textAlignment="CENTER" visible="false" />
+                        <Label fx:id="chartLabel" alignment="CENTER" contentDisplay="TEXT_ONLY" styleClass="chartLabel" textAlignment="CENTER" visible="false" />
                         <VBox prefHeight="525.0" prefWidth="600.0">
                            <children>
                               <PieChart fx:id="foodWeek" legendSide="RIGHT" prefHeight="265.0" prefWidth="200.0" title="produkty z tygodnia" />
@@ -47,30 +60,37 @@
             </HBox>
          </content>
       </Tab>
-      <Tab closable="false" text="potrawy">
+      <Tab closable="false" onSelectionChanged="#makeChartLabelNotVisible" text="potrawy">
         <content>
-            <HBox prefHeight="600.0" prefWidth="950.0" stylesheets="@CSS/recipes-style.css">
+            <HBox prefHeight="580.0" prefWidth="950.0" stylesheets="@CSS/recipes-style.css">
                <children>
-                  <TableView fx:id="dishes" prefHeight="600.0" prefWidth="300.0">
+                  <TableView fx:id="dishes" prefHeight="557.0" prefWidth="325.0">
                      <columns>
-                        <TableColumn fx:id="tableDishName" prefWidth="136.0" text="potrawa" />
-                        <TableColumn fx:id="tableDishDate" prefWidth="138.0" text="data przygotowania" />
+                        <TableColumn prefWidth="168.99998474121094" text="potrawa">
+                           <cellValueFactory>
+                              <PropertyValueFactory property="name" />
+                           </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn prefWidth="155.0" text="data przygotowania">
+                           <cellValueFactory>
+                              <PropertyValueFactory property="date" />
+                           </cellValueFactory>
+                        </TableColumn>
                      </columns>
                   </TableView>
-                  <VBox prefHeight="600.0" prefWidth="676.0">
+                  <AnchorPane fx:id="dishPane" prefHeight="550.0" prefWidth="600.0">
                      <children>
-                        <!--<AnchorPane prefHeight="290.0" prefWidth="625.0">
-                           <children>-->
-                              <PieChart fx:id="dishWeek" legendSide="RIGHT" prefHeight="290.0" prefWidth="625.0" />
-                              <!--<Label fx:id="chartLabel" contentDisplay="TEXT_ONLY" layoutY="292.0" visible="false" />-->
-                        <!--   </children>
-                        </AnchorPane>-->
-                        <PieChart fx:id="dishMonth" layoutX="10.0" layoutY="10.0" legendSide="RIGHT" prefHeight="290.0" prefWidth="625.0" />
+                        <VBox prefHeight="525.0" prefWidth="600.0">
+                           <children>
+                              <PieChart fx:id="dishWeek" legendSide="RIGHT" prefHeight="290.0" prefWidth="625.0" title="potrawy z tygodnia" />
+                              <PieChart fx:id="dishMonth" legendSide="RIGHT" prefHeight="290.0" prefWidth="625.0" title="potrawy z miesiąca" />
+                           </children>
+                        </VBox>
                      </children>
-                  </VBox>
+                  </AnchorPane>
                </children>
                <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </HBox>
         </content>

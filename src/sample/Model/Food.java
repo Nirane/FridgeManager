@@ -5,13 +5,15 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Food {
 
+    private int id;
     private SimpleStringProperty name;
     private SimpleStringProperty type;
     private SimpleDoubleProperty weight;
     private SimpleStringProperty owner;
     private SimpleStringProperty date;
 
-    public Food(String name, String type, double weight, String date, String owner) {
+    public Food(int id, String name, String type, double weight, String date, String owner) {
+        this.id = id;
         this.name = new SimpleStringProperty(name);
         this.type = new SimpleStringProperty(type);
         this.weight = new SimpleDoubleProperty(weight);
@@ -77,5 +79,13 @@ public class Food {
 
     public void setDate(String date) {
         this.date.set(date);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

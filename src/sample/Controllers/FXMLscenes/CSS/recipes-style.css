@@ -88,3 +88,13 @@
 .chart-pie {
     -fx-cursor: hand;
 }
+
+.chartLabel {
+    -fx-background-color: #F9D342;
+    -fx-text-fill: #292826;
+    -fx-font-size: 13;
+    -fx-border-color: black;
+    -fx-border-width: 2;
+    -fx-pref-width: 100;
+    -fx-pref-height: 40;
+}

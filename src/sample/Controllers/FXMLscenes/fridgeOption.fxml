@@ -31,7 +31,7 @@
                </Label>
            </items>
        </ToolBar>
-      <VBox alignment="CENTER" styleClass="optionBackground" stylesheets="@CSS/recipes-style.css">
+      <VBox fx:id="content" alignment="CENTER" styleClass="optionBackground" stylesheets="@CSS/recipes-style.css">
          <children>
               <Label alignment="CENTER" prefHeight="17.0" prefWidth="174.0" styleClass="optionLabel" text="Nazwa">
                <VBox.margin>
@@ -43,13 +43,13 @@
                   <Insets top="12.5" />
                </VBox.margin></Label>
               <TextField fx:id="typeField" prefHeight="25.0" prefWidth="174.0" />
-              <Label alignment="CENTER" prefHeight="17.0" prefWidth="174.0" styleClass="optionLabel" text="Waga">
+              <Label fx:id="weightLabel" alignment="CENTER" prefHeight="17.0" prefWidth="174.0" styleClass="optionLabel" text="Waga">
                <VBox.margin>
                   <Insets top="12.5" />
                </VBox.margin></Label>
               <Spinner fx:id="weightField" editable="true" prefHeight="25.0" prefWidth="174.0">
                   <valueFactory>
-                      <SpinnerValueFactory.DoubleSpinnerValueFactory amountToStepBy="0.1" max="50.0" min="0.1" />
+                      <SpinnerValueFactory.DoubleSpinnerValueFactory amountToStepBy="0.1" max="50.0" min="0.1"/>
                   </valueFactory>
               </Spinner>
               <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="174.0" styleClass="optionLabel" text="Data ważności" textAlignment="CENTER">

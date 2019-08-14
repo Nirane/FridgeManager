@@ -43,7 +43,7 @@
       <VBox prefHeight="596.0" prefWidth="440.0">
          <children>
             <TextArea fx:id="stagesDescription" editable="false" prefHeight="330.0" prefWidth="415.0" wrapText="true" />
-            <Button fx:id="cookButton" mnemonicParsing="false" text="Gotuj">
+            <Button fx:id="cookButton" mnemonicParsing="false" onMouseClicked="#loadWindow" text="Gotuj">
                <VBox.margin>
                   <Insets left="40.0" top="5.0" />
                </VBox.margin>

@@ -6,11 +6,9 @@ import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import sample.Model.Dish;
 import sample.Model.Source;
 
@@ -25,40 +23,26 @@ import java.util.List;
 public class HistoryController {
 
     @FXML private TableView<Dish> dishes;
-    @FXML private TableColumn<Dish, String> tableDishName;
-    @FXML private TableColumn<Dish, String> tableDishDate;
-
     @FXML private TableView<Dish> food;
-    @FXML private TableColumn<Dish, String> tableFoodName;
-    @FXML private TableColumn<Dish, Double> tableFoodWeight;
-    @FXML private TableColumn<Dish, String> tableFoodDate;
 
     @FXML private PieChart foodWeek;
     @FXML private PieChart foodMonth;
     @FXML private PieChart dishWeek;
     @FXML private PieChart dishMonth;
 
-    @FXML
-    private TabPane tabPane;
-
     private double dishWeekValuesSummedUp = 0;
     private double dishMonthValuesSummedUp = 0;
     private double foodWeekValuesSummedUp = 0;
     private double foodMonthValuesSummedUp = 0;
 
-    @FXML
-    private Label chartLabel;
+    @FXML private AnchorPane foodPane;
+    @FXML private AnchorPane dishPane;
+    @FXML private Label chartLabel;
 
     private ObservableList<Dish> dishesList = FXCollections.observableArrayList();
     private ObservableList<Dish> foodList = FXCollections.observableArrayList();
 
     public void initialize() {
-        tableDishName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        tableDishDate.setCellValueFactory(new PropertyValueFactory<>("date"));
-
-        tableFoodName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        tableFoodWeight.setCellValueFactory(new PropertyValueFactory<>("weight"));
-        tableFoodDate.setCellValueFactory(new PropertyValueFactory<>("date"));
 
         Source.getInstance().initializeHistoryRecipes();
         Source.getInstance().initializeHistoryFood();
@@ -72,6 +56,17 @@ public class HistoryController {
         food.setItems(foodList);
 
         fillCharts();
+    }
+
+    void addToDishHistory(Dish dish)
+    {
+        dishesList.add(dish);
+        dishWeek.getData().clear();
+        dishMonth.getData().clear();
+        dishWeekValuesSummedUp = 0;
+        dishMonthValuesSummedUp = 0;
+        fillStats(dishWeek, dishes);
+        fillStats(dishMonth, dishes);
     }
 
     private void fillCharts() {
@@ -130,36 +125,44 @@ public class HistoryController {
             }
         });
 
-        chartLabel.setStyle("-fx-font-size: 24;");
-        chartLabel.setPrefSize(100,40);
-        chartLabel.setVisible(true);
         chartLabel.toFront();
 
         for (final PieChart.Data d: chart.getData()) {
             d.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED, event -> {
                 chartLabel.setLayoutX(event.getSceneX()- 780);
-                chartLabel.setLayoutY( event.getSceneY() - 70);
+                chartLabel.setLayoutY(event.getSceneY() - 70);
+                chartLabel.setVisible(true);
 
                 switch (chart.getId()) {
                     case "foodWeek":
+                        if(!foodPane.getChildren().contains(chartLabel)) foodPane.getChildren().add(chartLabel);
                         chartLabel.setText(String.format("%.2f%s %.2f %s", d.getPieValue() / foodWeekValuesSummedUp * 100,"%", d.getPieValue(), "kg"));
                         break;
                     case "foodMonth":
+                        if(!foodPane.getChildren().contains(chartLabel)) foodPane.getChildren().add(chartLabel);
                         chartLabel.setText(String.format("%.2f%s %.2f %s", d.getPieValue() / foodMonthValuesSummedUp * 100,"%", d.getPieValue(), "kg"));
                         break;
                     case "dishWeek":
-                        chartLabel.setText(String.format("%.2f", d.getPieValue() / dishWeekValuesSummedUp * 100));
+                        if(!dishPane.getChildren().contains(chartLabel)) dishPane.getChildren().add(chartLabel);
+                        chartLabel.setText(String.format("%.2f%s %.0f %s", d.getPieValue() / dishWeekValuesSummedUp * 100,"%", d.getPieValue(), "razy"));
                         break;
                     case "dishMonth":
-                        chartLabel.setText(String.format("%.2f", d.getPieValue() / dishMonthValuesSummedUp * 100) + "%");
+                        if(!dishPane.getChildren().contains(chartLabel)) dishPane.getChildren().add(chartLabel);
+                        chartLabel.setText(String.format("%.2f%s %.0f %s", d.getPieValue() / dishMonthValuesSummedUp * 100,"%", d.getPieValue(), "razy"));
                         break;
                 }
-
-                chartLabel.setStyle("-fx-background-color: #F9D342;" +
-                        " -fx-text-fill: #292826;" +
-                        " -fx-border-color: black;" +
-                        " -fx-border-width: 2;");
             });
         }
+    }
+
+    private void removeOutdated()
+    {
+        //removing data from history that is older than a month
+    }
+
+    @FXML
+    void makeChartLabelNotVisible()
+    {
+        chartLabel.setVisible(false);
     }
 }

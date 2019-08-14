@@ -140,8 +140,8 @@ public class RecipesOptionController extends ToolbarController {
 
     private void addRecipe()
     {
-        Source.getInstance().addRecipe(name,type,ingredients,date,time,stages);
-        RecipesData.getInstance().addRecipe(new Recipe(name,type,ingredients,date,time,stages));
+        int generatedId = Source.getInstance().addRecipe(name,type,ingredients,date,time,stages);
+        RecipesData.getInstance().addRecipe(new Recipe(generatedId,name,type,ingredients,date,time,stages));
         window.close();
     }
 

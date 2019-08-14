@@ -3,6 +3,7 @@ package sample.Controllers;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import sample.Model.Food;
 import sample.Model.FoodData;
@@ -21,6 +22,9 @@ public class FridgeOptionController extends ToolbarController {
 
     @FXML private Label windowName;
     @FXML private Button endActionButton;
+
+    @FXML private Label weightLabel;
+    @FXML private VBox content;
 
     @FXML private TableView<Food> products;
 
@@ -66,6 +70,10 @@ public class FridgeOptionController extends ToolbarController {
                 window.setTitle("Wyszukaj produkt");
                 windowName.setText("Wyszukaj produkt");
                 endActionButton.setText("Szukaj");
+                //No need of searching exact weight (who could do that?)
+                content.getChildren().remove(weightLabel);
+                content.getChildren().remove(weightField);
+
                 endActionButton.setOnMouseClicked(e -> {
                     setOptionData();
                     searchProduct();
@@ -105,7 +113,6 @@ public class FridgeOptionController extends ToolbarController {
                         deleteProduct();
                     });
                 }
-
             }
         });
     }
@@ -114,7 +121,7 @@ public class FridgeOptionController extends ToolbarController {
     {
         this.name = nameField.getText();
         this.type = typeField.getText();
-        if(weightField.getValue()!=null) this.weight = weightField.getValue();
+        if(weightField.getValue()!=null) weight = weightField.getValue();
         this.date = (dateField.getValue()!=null) ? Date.valueOf(dateField.getValue()).toString() : "";
         this.owner = ownerField.getText();
     }
@@ -122,84 +129,28 @@ public class FridgeOptionController extends ToolbarController {
     @FXML
     private void addProduct()
     {
-        Source.getInstance().addFood(name, type, weight, date, owner);
-        FoodData.getInstance().addFood(new Food(name,type,weight,date,owner));
+        int id = Source.getInstance().addFood(name, type, weight, date, owner);
+        FoodData.getInstance().addFood(new Food(id, name,type,weight,date,owner));
         window.close();
     }
 
     @FXML
     private void searchProduct()
     {
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:sqlite:baza.db");
-            Statement statement = connection.createStatement();
-
-            String sql = "SELECT * FROM products WHERE ";
-
-            if(!name.trim().isEmpty()) sql += "nazwa LIKE '%" + name + "%'";
-            else sql += "nazwa LIKE '%'";
-            if(!type.trim().isEmpty()) sql += " AND typ LIKE '%" + type + "%'";
-            else sql += " AND typ LIKE '%'";
-            if(weight!=0.0) sql += " AND waga LIKE '%" + weight + "%'";
-            else sql += " AND waga LIKE '%'";
-            if(date!=null) sql += " AND data LIKE '%" + date + "%'";
-            else sql += " AND data LIKE '%'";
-            if(!owner.trim().isEmpty()) sql += " AND właściciel LIKE '%" + owner + "%'";
-            else sql += " AND właściciel LIKE '%'";
-
-            statement.execute(sql);
-            products.getItems().clear();
-
-            ResultSet results = statement.getResultSet();
-            while (results.next())
-            {
-                String nameQ = results.getString("nazwa");
-                String typeQ = results.getString("typ");
-                double weightQ = results.getDouble("waga");
-                String dateQ = results.getString("data");
-                String ownerQ = results.getString("właściciel");
-                products.getItems().add(new Food(nameQ,typeQ, weightQ, dateQ, ownerQ));
-            }
-
-            statement.close();
-            connection.close();
-            window.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        FoodData.getInstance().setFood(Source.getInstance().searchFood(name,type,weight,date,owner));
+        window.close();
     }
 
     @FXML
     private void editProduct()
     {
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:sqlite:baza.db");
-            Statement statement = connection.createStatement();
-            statement.execute("UPDATE products " +
-                    "SET nazwa = '" + name +
-                    "', typ = '" + type +
-                    "', waga = '" + weight +
-                    "', data = '" + date +
-                    "', właściciel = '" + owner +"'" +
-                    "WHERE nazwa = '" + selectedFood.getName() +
-                    "' AND typ = '" + selectedFood.getType() +
-                    "' AND waga = '" + selectedFood.getWeight() +
-                    "' AND data = '" + selectedFood.getDate() +
-                    "' AND właściciel = '" + selectedFood.getOwner() +"'");
-            statement.close();
-            connection.close();
-
-            selectedFood.setName(name);
-            selectedFood.setType(type);
-            selectedFood.setWeight(weight);
-            selectedFood.setDate(date);
-            selectedFood.setOwner(owner);
-            window.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        Source.getInstance().editFood(selectedFood.getId(), name, type, weight, date, owner);
+        selectedFood.setName(name);
+        selectedFood.setType(type);
+        selectedFood.setWeight(weight);
+        selectedFood.setDate(date);
+        selectedFood.setOwner(owner);
+        window.close();
     }
 
     @FXML

@@ -35,7 +35,11 @@ public class MainMenuController extends ToolbarController {
             welcomeNode = FXMLLoader.load(getClass().getResource("FXMLscenes/welcome.fxml"));
             recipeNode = FXMLLoader.load(getClass().getResource("FXMLscenes/recipes.fxml"));
             fridgeNode = FXMLLoader.load(getClass().getResource("FXMLscenes/fridge.fxml"));
-            historyNode = FXMLLoader.load(getClass().getResource("FXMLscenes/history.fxml"));
+
+            FXMLLoader historyLoader = new FXMLLoader(getClass().getResource("FXMLscenes/history.fxml"));
+            historyNode = historyLoader.load();
+            Controllers.getInstance().setHistoryController(historyLoader.getController());
+
             calendarNode = FXMLLoader.load(getClass().getResource("FXMLscenes/calendar.fxml"));
             creatorsNode = FXMLLoader.load(getClass().getResource("FXMLscenes/creators.fxml"));
             selectedButton = welcome;
@@ -65,5 +69,7 @@ public class MainMenuController extends ToolbarController {
         else if(event.getSource().equals(creators)) selectedNode = creatorsNode;
 
         content.getChildren().add(selectedNode);
+
+        if(selectedNode != historyNode) Controllers.getInstance().getHistoryController().makeChartLabelNotVisible();
     }
 }

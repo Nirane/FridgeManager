@@ -23,6 +23,9 @@ public class RecipesController extends ToolbarController {
     @FXML private TextArea stagesDescription;
     @FXML private Button addButton;
     @FXML private Button searchButton;
+    @FXML private Button editButton;
+    @FXML private Button deleteButton;
+    @FXML private Button cookButton;
 
     public void initialize()
     {
@@ -33,7 +36,9 @@ public class RecipesController extends ToolbarController {
     @FXML
     private void loadWindow(MouseEvent event)
     {
-        if(event.getSource().equals(addButton) || event.getSource().equals(searchButton) || recipes.getSelectionModel().getSelectedItem()!=null)
+        if(event.getSource().equals(addButton) || event.getSource().equals(searchButton) ||
+                ((event.getSource().equals(editButton)||(event.getSource().equals(deleteButton)))
+                        &&(recipes.getSelectionModel().getSelectedItem()!=null)))
         {
             Stage window = new Stage();
             window.initStyle(StageStyle.TRANSPARENT);
@@ -48,6 +53,25 @@ public class RecipesController extends ToolbarController {
                 recipesOptionController.setRecipes(recipes);
                 recipesOptionController.setStagesDescription(stagesDescription);
                 recipesOptionController.setRecipesController(this);
+
+                window.setScene(new Scene(root,400,600));
+                window.show();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else if(event.getSource().equals(cookButton) && recipes.getSelectionModel().getSelectedItem()!=null)
+        {
+            Stage window = new Stage();
+            window.initStyle(StageStyle.TRANSPARENT);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLscenes/cook.fxml"));
+
+            try {
+                Parent root = fxmlLoader.load();
+
+                CookController cookController = fxmlLoader.getController();
+                cookController.setSelectedRecipe(recipes.getSelectionModel().getSelectedItem());
 
                 window.setScene(new Scene(root,400,600));
                 window.show();
